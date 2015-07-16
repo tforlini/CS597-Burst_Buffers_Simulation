@@ -1,7 +1,7 @@
 # Update the following 3 variables for your own system:
-CODESBASE=/home/tforlini/codes-base/install/
-CODESNET=/home/tforlini/codes-net/install/
-ROSS=/home/tforlini/ROSS/install
+CODESBASE=/home/ubuntu/codes-base/install/
+CODESNET=/home/ubuntu/codes-net/install/
+ROSS=/home/ubuntu/ROSS/install
 
 
 ifndef CODESBASE
