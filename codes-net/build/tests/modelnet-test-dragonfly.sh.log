@@ -1,0 +1,165 @@
+tests/modelnet-test --sync=1 -- tests/conf/modelnet-test-dragonfly.conf 
+
+Tue Jun 16 20:52:08 2015
+
+ROSS Revision: 53aac01bd3576c3d0ed631823b8db6a6f8788f59
+
+tw_net_start: Found world size to be 1 
+
+ROSS Core Configuration: 
+	Total Nodes                                                  1
+	Total Processors                                   [Nodes (1) x PE_per_Node (1)] 1
+	Total KPs                                          [Nodes (1) x KPs (16)] 16
+	Total LPs                                                  180
+	Simulation End Time                                31536000000000000.00
+	LP-to-PE Mapping                                   model defined
+
+
+ROSS Event Memory Allocation:
+	Model events                                             46081
+	Network events                                           50000
+	Total events                                             96080
+
+*** START SEQUENTIAL SIMULATION ***
+
+*** END SIMULATION ***
+
+server 0 recvd 2048 bytes in 0.000001 seconds, 1374.745389 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 1 recvd 2048 bytes in 0.000002 seconds, 1188.778663 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 5 recvd 2048 bytes in 0.000002 seconds, 1188.978393 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 6 recvd 2048 bytes in 0.000001 seconds, 1387.478782 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 10 recvd 2048 bytes in 0.000002 seconds, 1186.630563 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 11 recvd 2048 bytes in 0.000001 seconds, 1326.803168 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 15 recvd 2048 bytes in 0.000001 seconds, 1324.771437 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 16 recvd 2048 bytes in 0.000004 seconds, 535.120279 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 20 recvd 2048 bytes in 0.000005 seconds, 428.674665 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 21 recvd 2048 bytes in 0.000005 seconds, 429.377995 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 25 recvd 2048 bytes in 0.000006 seconds, 334.720593 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 26 recvd 2048 bytes in 0.000006 seconds, 302.359596 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 30 recvd 2048 bytes in 0.000007 seconds, 290.908505 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 31 recvd 2048 bytes in 0.000007 seconds, 288.734217 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 35 recvd 2048 bytes in 0.000007 seconds, 286.438927 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 36 recvd 2048 bytes in 0.000001 seconds, 1449.656109 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 40 recvd 2048 bytes in 0.000004 seconds, 445.648520 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 41 recvd 2048 bytes in 0.000005 seconds, 429.677818 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 45 recvd 2048 bytes in 0.000007 seconds, 287.153785 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 46 recvd 2048 bytes in 0.000007 seconds, 289.005724 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 50 recvd 2048 bytes in 0.000006 seconds, 307.932680 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 51 recvd 2048 bytes in 0.000007 seconds, 294.905502 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 55 recvd 2048 bytes in 0.000007 seconds, 290.600875 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 56 recvd 2048 bytes in 0.000007 seconds, 286.862879 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 60 recvd 2048 bytes in 0.000006 seconds, 335.893362 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 61 recvd 2048 bytes in 0.000006 seconds, 337.015128 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 65 recvd 2048 bytes in 0.000004 seconds, 456.874176 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 66 recvd 2048 bytes in 0.000005 seconds, 429.251447 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 70 recvd 2048 bytes in 0.000007 seconds, 292.034629 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 71 recvd 2048 bytes in 0.000006 seconds, 303.800196 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 75 recvd 2048 bytes in 0.000004 seconds, 436.743920 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 76 recvd 2048 bytes in 0.000001 seconds, 1879.688919 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 80 recvd 2048 bytes in 0.000006 seconds, 320.360150 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 81 recvd 2048 bytes in 0.000006 seconds, 332.039305 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 85 recvd 2048 bytes in 0.000005 seconds, 400.942786 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 86 recvd 2048 bytes in 0.000005 seconds, 401.511546 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 90 recvd 2048 bytes in 0.000006 seconds, 316.438986 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 91 recvd 2048 bytes in 0.000007 seconds, 297.437381 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 95 recvd 2048 bytes in 0.000007 seconds, 286.895361 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 96 recvd 2048 bytes in 0.000007 seconds, 286.365434 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 100 recvd 2048 bytes in 0.000006 seconds, 327.823151 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 101 recvd 2048 bytes in 0.000007 seconds, 297.428734 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 105 recvd 2048 bytes in 0.000007 seconds, 291.857451 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 106 recvd 2048 bytes in 0.000006 seconds, 329.460884 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 110 recvd 2048 bytes in 0.000004 seconds, 473.189611 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 111 recvd 2048 bytes in 0.000004 seconds, 434.155087 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 115 recvd 2048 bytes in 0.000005 seconds, 428.628755 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 116 recvd 2048 bytes in 0.000001 seconds, 1771.446730 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 120 recvd 2048 bytes in 0.000006 seconds, 324.119168 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 121 recvd 2048 bytes in 0.000007 seconds, 287.096066 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 125 recvd 2048 bytes in 0.000007 seconds, 286.835509 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 126 recvd 2048 bytes in 0.000006 seconds, 303.953726 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 130 recvd 2048 bytes in 0.000005 seconds, 427.208061 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 131 recvd 2048 bytes in 0.000005 seconds, 429.920640 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 135 recvd 2048 bytes in 0.000006 seconds, 300.493433 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 136 recvd 2048 bytes in 0.000007 seconds, 286.393644 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 140 recvd 2048 bytes in 0.000005 seconds, 356.256445 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 141 recvd 2048 bytes in 0.000007 seconds, 290.317945 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 145 recvd 2048 bytes in 0.000007 seconds, 292.220521 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 146 recvd 2048 bytes in 0.000007 seconds, 287.609376 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 150 recvd 2048 bytes in 0.000007 seconds, 289.796318 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 151 recvd 2048 bytes in 0.000005 seconds, 355.375910 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 155 recvd 2048 bytes in 0.000004 seconds, 536.015410 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 156 recvd 2048 bytes in 0.000001 seconds, 1394.108086 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 160 recvd 2048 bytes in 0.000006 seconds, 354.667511 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 161 recvd 2048 bytes in 0.000006 seconds, 306.784330 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 165 recvd 2048 bytes in 0.000006 seconds, 307.545049 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 166 recvd 2048 bytes in 0.000006 seconds, 314.550761 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 170 recvd 2048 bytes in 0.000006 seconds, 310.735877 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 171 recvd 2048 bytes in 0.000005 seconds, 355.491444 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 175 recvd 2048 bytes in 0.000004 seconds, 509.264653 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 176 recvd 2048 bytes in 0.000002 seconds, 969.192159 MiB/s sent_count 1 recvd_count 1 local_count 2 
+
+	: Running Time = 0.1292 seconds
+
+TW Library Statistics:
+	Total Events Processed                                  121032
+	Events Aborted (part of RBs)                                 0
+	Events Rolled Back                                           0
+	Event Ties Detected in PE Queues                             0
+	Efficiency                                              100.00 %
+	Total Remote (shared mem) Events Processed                   0
+	Percent Remote Events                                     0.00 %
+	Total Remote (network) Events Processed                      0
+	Percent Remote Events                                     0.00 %
+
+	Total Roll Backs                                             0
+	Primary Roll Backs                                           0
+	Secondary Roll Backs                                         0
+	Fossil Collect Attempts                                      0
+	Total GVT Computations                                       0
+
+	Net Events Processed                                    121032
+	Event Rate (events/sec)                               936599.0
+	Total Events Scheduled Past End Time                         0
+
+TW Memory Statistics:
+	Events Allocated                                         96080
+	Memory Allocated                                         65600
+	Memory Wasted                                              677
+
+TW Data Structure sizes in bytes (sizeof):
+	PE struct                                                  592
+	KP struct                                                  104
+	LP struct                                                   56
+	LP Model struct                                             64
+	LP RNGs                                                     80
+	Total LP                                                   200
+	Event struct                                               120
+	Event struct with Model                                    632
+
+TW Clock Cycle Statistics (MAX values in secs at 1.0000 GHz):
+	Priority Queue (enq/deq)                                0.0000
+	AVL Tree (insert/delete)                                0.0000
+	LZ4 (de)compression                                     0.0000
+	Buddy system                                            0.0000
+	Event Processing                                        0.0000
+	Event Cancel                                            0.0000
+	Event Abort                                             0.0000
+
+	GVT                                                     0.0000
+	Fossil Collect                                          0.0000
+	Primary Rollbacks                                       0.0000
+	Network Read                                            0.0000
+	Total Time (Note: Using Running Time above for Speedup)      0.0000
+
+TW GVT Statistics: MPI AllReduce
+	GVT Interval                                                16
+	Batch Size                                                  16
+
+	Forced GVT                                                   0
+	Total GVT Computations                                       0
+	Total All Reduce Calls                                       0
+	Average Reduction / GVT                                   -nan
+ Average number of hops traversed 4.312500 average message latency 1.730649 us maximum message latency 3.447882 us 
+LP-IO: writing output to modelnet-test-18152-1434487928/
+LP-IO: data files:
+   modelnet-test-18152-1434487928/model-net-category-all
+   modelnet-test-18152-1434487928/model-net-category-test

@@ -1,0 +1,31 @@
+0 - Install codes-base, either from the repository or using the 0.3.0 release
+    tarball (see http://www.mcs.anl.gov/projects/codes/).
+
+1 - If you are building codes-net directly from the repository, run
+
+    ./prepare.sh
+
+2 - Configure codes-net. This can be done in the source directory or in a
+    dedicated build directory if you prefer out-of-tree builds.  The CC
+    environment variable must refer to an MPI compiler.
+
+    mkdir build
+    cd build
+    ../configure --with-codes-base=/path/to/codes-base/install --prefix=/path/to/codes-net/install CC=mpicc
+
+3 - Build codes-net
+
+    make && make install
+4 - (optional) run test programs
+
+    make tests && make check
+
+Notes on using uncrustify
+-----------------
+- version 0.61 is required
+- build/install uncrustify from your favorite distro (0.61), OR download from
+  https://github.com/bengardner/uncrustify and build from source
+  (configure --prefix /path/to/install && make && make install)
+- either use uncrustify directly (see uncrustify --help) or use the provided
+  reformat.sh tool which is a shim over some of the options (see reformat.sh
+  -h)

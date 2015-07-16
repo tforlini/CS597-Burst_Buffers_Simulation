@@ -1,0 +1,125 @@
+tests/modelnet-test --sync=1 -- tests/conf/modelnet-test-torus.conf 
+
+Tue Jun 16 20:52:08 2015
+
+ROSS Revision: 53aac01bd3576c3d0ed631823b8db6a6f8788f59
+
+tw_net_start: Found world size to be 1 
+
+ROSS Core Configuration: 
+	Total Nodes                                                  1
+	Total Processors                                   [Nodes (1) x PE_per_Node (1)] 1
+	Total KPs                                          [Nodes (1) x KPs (16)] 16
+	Total LPs                                                   64
+	Simulation End Time                                31536000000000000.00
+	LP-to-PE Mapping                                   model defined
+
+
+ROSS Event Memory Allocation:
+	Model events                                             16385
+	Network events                                           50000
+	Total events                                             66384
+
+*** START SEQUENTIAL SIMULATION ***
+
+*** END SIMULATION ***
+
+server 0 recvd 2048 bytes in 0.000002 seconds, 946.892080 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 2 recvd 2048 bytes in 0.000002 seconds, 946.844709 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 4 recvd 2048 bytes in 0.000002 seconds, 946.788585 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 6 recvd 2048 bytes in 0.000002 seconds, 931.789516 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 8 recvd 2048 bytes in 0.000002 seconds, 946.514339 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 10 recvd 2048 bytes in 0.000002 seconds, 946.786274 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 12 recvd 2048 bytes in 0.000002 seconds, 946.700324 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 14 recvd 2048 bytes in 0.000002 seconds, 917.095558 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 16 recvd 2048 bytes in 0.000002 seconds, 946.909635 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 18 recvd 2048 bytes in 0.000002 seconds, 946.873330 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 20 recvd 2048 bytes in 0.000002 seconds, 947.108597 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 22 recvd 2048 bytes in 0.000002 seconds, 931.327654 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 24 recvd 2048 bytes in 0.000002 seconds, 946.561765 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 26 recvd 2048 bytes in 0.000002 seconds, 946.260462 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 28 recvd 2048 bytes in 0.000002 seconds, 946.529801 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 30 recvd 2048 bytes in 0.000002 seconds, 903.515153 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 32 recvd 2048 bytes in 0.000002 seconds, 946.787593 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 34 recvd 2048 bytes in 0.000002 seconds, 947.060407 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 36 recvd 2048 bytes in 0.000002 seconds, 946.754551 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 38 recvd 2048 bytes in 0.000002 seconds, 930.859360 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 40 recvd 2048 bytes in 0.000002 seconds, 946.912719 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 42 recvd 2048 bytes in 0.000002 seconds, 947.104296 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 44 recvd 2048 bytes in 0.000002 seconds, 946.757020 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 46 recvd 2048 bytes in 0.000002 seconds, 916.770875 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 48 recvd 2048 bytes in 0.000002 seconds, 946.500347 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 50 recvd 2048 bytes in 0.000002 seconds, 947.309798 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 52 recvd 2048 bytes in 0.000002 seconds, 947.118255 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 54 recvd 2048 bytes in 0.000002 seconds, 931.516873 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 56 recvd 2048 bytes in 0.000002 seconds, 946.824574 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 58 recvd 2048 bytes in 0.000002 seconds, 946.508246 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 60 recvd 2048 bytes in 0.000002 seconds, 946.766971 MiB/s sent_count 1 recvd_count 1 local_count 2 
+server 62 recvd 2048 bytes in 0.000002 seconds, 902.168896 MiB/s sent_count 1 recvd_count 1 local_count 2 
+
+	: Running Time = 0.0168 seconds
+
+TW Library Statistics:
+	Total Events Processed                                   18464
+	Events Aborted (part of RBs)                                 0
+	Events Rolled Back                                           0
+	Event Ties Detected in PE Queues                             0
+	Efficiency                                              100.00 %
+	Total Remote (shared mem) Events Processed                   0
+	Percent Remote Events                                     0.00 %
+	Total Remote (network) Events Processed                      0
+	Percent Remote Events                                     0.00 %
+
+	Total Roll Backs                                             0
+	Primary Roll Backs                                           0
+	Secondary Roll Backs                                         0
+	Fossil Collect Attempts                                      0
+	Total GVT Computations                                       0
+
+	Net Events Processed                                     18464
+	Event Rate (events/sec)                              1097545.0
+	Total Events Scheduled Past End Time                         0
+
+TW Memory Statistics:
+	Events Allocated                                         66384
+	Memory Allocated                                        146818
+	Memory Wasted                                              708
+
+TW Data Structure sizes in bytes (sizeof):
+	PE struct                                                  592
+	KP struct                                                  104
+	LP struct                                                   56
+	LP Model struct                                             56
+	LP RNGs                                                     80
+	Total LP                                                   192
+	Event struct                                               120
+	Event struct with Model                                   2168
+
+TW Clock Cycle Statistics (MAX values in secs at 1.0000 GHz):
+	Priority Queue (enq/deq)                                0.0000
+	AVL Tree (insert/delete)                                0.0000
+	LZ4 (de)compression                                     0.0000
+	Buddy system                                            0.0000
+	Event Processing                                        0.0000
+	Event Cancel                                            0.0000
+	Event Abort                                             0.0000
+
+	GVT                                                     0.0000
+	Fossil Collect                                          0.0000
+	Primary Rollbacks                                       0.0000
+	Network Read                                            0.0000
+	Total Time (Note: Using Running Time above for Speedup)      0.0000
+
+TW GVT Statistics: MPI AllReduce
+	GVT Interval                                                16
+	Batch Size                                                  16
+
+	Forced GVT                                                   0
+	Total GVT Computations                                       0
+	Total All Reduce Calls                                       0
+	Average Reduction / GVT                                   -nan
+ Average number of hops traversed 1.437500 average message latency 0.962027 us maximum message latency 1.076083 us 
+LP-IO: writing output to modelnet-test-18132-1434487928/
+LP-IO: data files:
+   modelnet-test-18132-1434487928/model-net-category-all
+   modelnet-test-18132-1434487928/model-net-category-test

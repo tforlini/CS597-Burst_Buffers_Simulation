@@ -1,0 +1,121 @@
+tests/modelnet-p2p-bw --sync=1 -- tests/conf/modelnet-p2p-bw-loggp.conf 
+
+Tue Jun 16 20:52:08 2015
+
+ROSS Revision: 53aac01bd3576c3d0ed631823b8db6a6f8788f59
+
+tw_net_start: Found world size to be 1 
+Loggp configured to use parameters from file tests/conf/ng-mpi-tukey.dat
+Parsed 28 loggp table entries.
+
+ROSS Core Configuration: 
+	Total Nodes                                                  1
+	Total Processors                                   [Nodes (1) x PE_per_Node (1)] 1
+	Total KPs                                          [Nodes (1) x KPs (16)] 16
+	Total LPs                                                    4
+	Simulation End Time                                31536000000000000.00
+	LP-to-PE Mapping                                   model defined
+
+
+ROSS Event Memory Allocation:
+	Model events                                              1025
+	Network events                                           50000
+	Total events                                             51024
+
+*** START SEQUENTIAL SIMULATION ***
+
+*** END SIMULATION ***
+
+#p0	p1	dist	len	ave time (us)	rate
+0	1	1	4	6.793329	5.888129e+05
+0	1	1	8	6.811958	1.174405e+06
+0	1	1	16	6.818424	2.346583e+06
+0	1	1	32	6.830063	4.685169e+06
+0	1	1	64	6.840385	9.356198e+06
+0	1	1	128	6.787733	1.885755e+07
+0	1	1	256	6.795129	3.767404e+07
+0	1	1	512	6.855700	7.468238e+07
+0	1	1	1024	7.025049	1.457641e+08
+0	1	1	2048	7.449944	2.749014e+08
+0	1	1	4096	8.613089	4.755553e+08
+0	1	1	8192	15.354508	5.335241e+08
+0	1	1	16384	21.449494	7.638409e+08
+0	1	1	32768	30.313415	1.080974e+09
+0	1	1	65536	46.697525	1.403415e+09
+0	1	1	131072	65.244369	2.008940e+09
+0	1	1	262144	137.333930	1.908807e+09
+0	1	1	524288	267.881643	1.957163e+09
+0	1	1	1048576	528.977063	1.982271e+09
+0	1	1	2097152	1049.070765	1.999057e+09
+0	1	1	4194304	2091.355289	2.005543e+09
+0	1	1	8388608	4310.142104	1.946249e+09
+0	1	1	16777216	8663.829658	1.936467e+09
+0	1	1	33554432	17320.873110	1.937225e+09
+0	1	1	67108864	34634.960017	1.937605e+09
+
+	: Running Time = 0.1785 seconds
+
+TW Library Statistics:
+	Total Events Processed                                  450001
+	Events Aborted (part of RBs)                                 0
+	Events Rolled Back                                           0
+	Event Ties Detected in PE Queues                             0
+	Efficiency                                              100.00 %
+	Total Remote (shared mem) Events Processed                   0
+	Percent Remote Events                                     0.00 %
+	Total Remote (network) Events Processed                      0
+	Percent Remote Events                                     0.00 %
+
+	Total Roll Backs                                             0
+	Primary Roll Backs                                           0
+	Secondary Roll Backs                                         0
+	Fossil Collect Attempts                                      0
+	Total GVT Computations                                       0
+
+	Net Events Processed                                    450001
+	Event Rate (events/sec)                              2520929.3
+	Total Events Scheduled Past End Time                         0
+
+TW Memory Statistics:
+	Events Allocated                                         51024
+	Memory Allocated                                         23394
+	Memory Wasted                                              724
+
+TW Data Structure sizes in bytes (sizeof):
+	PE struct                                                  592
+	KP struct                                                  104
+	LP struct                                                   56
+	LP Model struct                                             56
+	LP RNGs                                                     80
+	Total LP                                                   192
+	Event struct                                               120
+	Event struct with Model                                    344
+
+TW Clock Cycle Statistics (MAX values in secs at 1.0000 GHz):
+	Priority Queue (enq/deq)                                0.0000
+	AVL Tree (insert/delete)                                0.0000
+	LZ4 (de)compression                                     0.0000
+	Buddy system                                            0.0000
+	Event Processing                                        0.0000
+	Event Cancel                                            0.0000
+	Event Abort                                             0.0000
+
+	GVT                                                     0.0000
+	Fossil Collect                                          0.0000
+	Primary Rollbacks                                       0.0000
+	Network Read                                            0.0000
+	Total Time (Note: Using Running Time above for Speedup)      0.0000
+
+TW GVT Statistics: MPI AllReduce
+	GVT Interval                                                16
+	Batch Size                                                  16
+
+	Forced GVT                                                   0
+	Total GVT Computations                                       0
+	Total All Reduce Calls                                       0
+	Average Reduction / GVT                                   -nan
+LP-IO: writing output to modelnet-p2p-bw-18162-1434487928/
+LP-IO: data files:
+   modelnet-p2p-bw-18162-1434487928/model-net-category-all
+   modelnet-p2p-bw-18162-1434487928/model-net-category-pong
+   modelnet-p2p-bw-18162-1434487928/model-net-category-ping

@@ -1,0 +1,12 @@
+prefix = /home/ubuntu/codes-net/install
+exec_prefix = ${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: codes-net
+Description: Network functionality for CODES storage simulation
+Version: @CODES_NET_VERSION@
+URL: http://trac.mcs.anl.gov/projects/CODES
+Requires:
+Libs: -L${libdir} -lcodes-net 
+Cflags: -I${includedir}
