@@ -1,0 +1,479 @@
+tests/workload/codes-workload-test --sync=1 ../tests/workload/codes-workload-test.conf 
+
+Tue Jun 16 20:50:25 2015
+
+ROSS Revision: 53aac01bd3576c3d0ed631823b8db6a6f8788f59
+
+Warning: found ill-formated argument: ../tests/workload/codes-workload-test.conf, stopping arg parsing here!! 
+tw_net_start: Found world size to be 1 
+
+ROSS Core Configuration: 
+	Total Nodes                                                  1
+	Total Processors                                   [Nodes (1) x PE_per_Node (1)] 1
+	Total KPs                                          [Nodes (1) x KPs (16)] 16
+	Total LPs                                                   64
+	Simulation End Time                                31536000.00
+	LP-to-PE Mapping                                        linear
+
+
+ROSS Event Memory Allocation:
+	Model events                                              2049
+	Network events                                           50000
+	Total events                                             52048
+
+*** START SEQUENTIAL SIMULATION ***
+
+handle_client_op_loop_event(), lp 12.
+codes_workload_load on gid: 12
+Client rank 12 will issue an open request.
+handle_client_op_loop_event(), lp 31.
+codes_workload_load on gid: 31
+Client rank 31 will issue an open request.
+handle_client_op_loop_event(), lp 7.
+codes_workload_load on gid: 7
+Client rank 7 will issue an open request.
+handle_client_op_loop_event(), lp 30.
+codes_workload_load on gid: 30
+Client rank 30 will issue an open request.
+handle_client_op_loop_event(), lp 23.
+codes_workload_load on gid: 23
+Client rank 23 will issue an open request.
+handle_client_op_loop_event(), lp 24.
+codes_workload_load on gid: 24
+Client rank 24 will issue an open request.
+handle_client_op_loop_event(), lp 40.
+codes_workload_load on gid: 40
+Client rank 40 will issue an open request.
+handle_client_op_loop_event(), lp 37.
+codes_workload_load on gid: 37
+Client rank 37 will issue an open request.
+handle_client_op_loop_event(), lp 4.
+codes_workload_load on gid: 4
+Client rank 4 will issue an open request.
+handle_client_op_loop_event(), lp 9.
+codes_workload_load on gid: 9
+Client rank 9 will issue an open request.
+handle_client_op_loop_event(), lp 3.
+codes_workload_load on gid: 3
+Client rank 3 will issue an open request.
+handle_client_op_loop_event(), lp 8.
+codes_workload_load on gid: 8
+Client rank 8 will issue an open request.
+handle_client_op_loop_event(), lp 39.
+codes_workload_load on gid: 39
+Client rank 39 will issue an open request.
+handle_client_op_loop_event(), lp 11.
+codes_workload_load on gid: 11
+Client rank 11 will issue an open request.
+handle_client_op_loop_event(), lp 19.
+codes_workload_load on gid: 19
+Client rank 19 will issue an open request.
+handle_client_op_loop_event(), lp 43.
+codes_workload_load on gid: 43
+Client rank 43 will issue an open request.
+handle_client_op_loop_event(), lp 46.
+codes_workload_load on gid: 46
+Client rank 46 will issue an open request.
+handle_client_op_loop_event(), lp 42.
+codes_workload_load on gid: 42
+Client rank 42 will issue an open request.
+handle_client_op_loop_event(), lp 16.
+codes_workload_load on gid: 16
+Client rank 16 will issue an open request.
+handle_client_op_loop_event(), lp 34.
+codes_workload_load on gid: 34
+Client rank 34 will issue an open request.
+handle_client_op_loop_event(), lp 15.
+codes_workload_load on gid: 15
+Client rank 15 will issue an open request.
+handle_client_op_loop_event(), lp 33.
+codes_workload_load on gid: 33
+Client rank 33 will issue an open request.
+handle_client_op_loop_event(), lp 25.
+codes_workload_load on gid: 25
+Client rank 25 will issue an open request.
+handle_client_op_loop_event(), lp 14.
+codes_workload_load on gid: 14
+Client rank 14 will issue an open request.
+handle_client_op_loop_event(), lp 21.
+codes_workload_load on gid: 21
+Client rank 21 will issue an open request.
+handle_client_op_loop_event(), lp 36.
+codes_workload_load on gid: 36
+Client rank 36 will issue an open request.
+handle_client_op_loop_event(), lp 45.
+codes_workload_load on gid: 45
+Client rank 45 will issue an open request.
+handle_client_op_loop_event(), lp 13.
+codes_workload_load on gid: 13
+Client rank 13 will issue an open request.
+handle_client_op_loop_event(), lp 28.
+codes_workload_load on gid: 28
+Client rank 28 will issue an open request.
+handle_client_op_loop_event(), lp 10.
+codes_workload_load on gid: 10
+Client rank 10 will issue an open request.
+handle_client_op_loop_event(), lp 17.
+codes_workload_load on gid: 17
+Client rank 17 will issue an open request.
+handle_client_op_loop_event(), lp 20.
+codes_workload_load on gid: 20
+Client rank 20 will issue an open request.
+handle_client_op_loop_event(), lp 41.
+codes_workload_load on gid: 41
+Client rank 41 will issue an open request.
+handle_client_op_loop_event(), lp 35.
+codes_workload_load on gid: 35
+Client rank 35 will issue an open request.
+handle_client_op_loop_event(), lp 47.
+codes_workload_load on gid: 47
+Client rank 47 will issue an open request.
+handle_client_op_loop_event(), lp 6.
+codes_workload_load on gid: 6
+Client rank 6 will issue an open request.
+handle_client_op_loop_event(), lp 27.
+codes_workload_load on gid: 27
+Client rank 27 will issue an open request.
+handle_client_op_loop_event(), lp 1.
+codes_workload_load on gid: 1
+Client rank 1 will issue an open request.
+handle_client_op_loop_event(), lp 26.
+codes_workload_load on gid: 26
+Client rank 26 will issue an open request.
+handle_client_op_loop_event(), lp 0.
+codes_workload_load on gid: 0
+Client rank 0 will delay for 43.000000 seconds.
+handle_client_op_loop_event(), lp 22.
+codes_workload_load on gid: 22
+Client rank 22 will issue an open request.
+handle_client_op_loop_event(), lp 32.
+codes_workload_load on gid: 32
+Client rank 32 will issue an open request.
+handle_client_op_loop_event(), lp 29.
+codes_workload_load on gid: 29
+Client rank 29 will issue an open request.
+handle_client_op_loop_event(), lp 38.
+codes_workload_load on gid: 38
+Client rank 38 will issue an open request.
+handle_client_op_loop_event(), lp 5.
+codes_workload_load on gid: 5
+Client rank 5 will issue an open request.
+handle_client_op_loop_event(), lp 18.
+codes_workload_load on gid: 18
+Client rank 18 will issue an open request.
+handle_client_op_loop_event(), lp 44.
+codes_workload_load on gid: 44
+Client rank 44 will issue an open request.
+handle_client_op_loop_event(), lp 2.
+codes_workload_load on gid: 2
+Client rank 2 will issue an open request.
+handle_client_op_loop_event(), lp 0.
+Client rank 0 will issue an open request.
+handle_svr_op_event at lp 51, type 4
+handle_svr_op_event at lp 51, type 4
+handle_svr_op_event at lp 51, type 4
+handle_svr_op_event at lp 51, type 4
+handle_svr_op_event at lp 51, type 4
+handle_svr_op_event at lp 51, type 4
+handle_svr_op_event at lp 51, type 4
+handle_svr_op_event at lp 51, type 4
+handle_svr_op_event at lp 51, type 4
+handle_svr_op_event at lp 51, type 4
+handle_svr_op_event at lp 51, type 4
+handle_svr_op_event at lp 51, type 4
+handle_svr_op_event at lp 51, type 4
+handle_svr_op_event at lp 51, type 4
+handle_svr_op_event at lp 51, type 4
+handle_svr_op_event at lp 51, type 4
+handle_svr_op_event at lp 51, type 4
+handle_svr_op_event at lp 51, type 4
+handle_svr_op_event at lp 51, type 4
+handle_svr_op_event at lp 51, type 4
+handle_svr_op_event at lp 51, type 4
+handle_svr_op_event at lp 51, type 4
+handle_svr_op_event at lp 51, type 4
+handle_svr_op_event at lp 51, type 4
+handle_svr_op_event at lp 51, type 4
+handle_svr_op_event at lp 51, type 4
+handle_svr_op_event at lp 51, type 4
+handle_svr_op_event at lp 51, type 4
+handle_svr_op_event at lp 51, type 4
+handle_svr_op_event at lp 51, type 4
+handle_svr_op_event at lp 51, type 4
+handle_svr_op_event at lp 51, type 4
+handle_svr_op_event at lp 51, type 4
+handle_svr_op_event at lp 51, type 4
+handle_svr_op_event at lp 51, type 4
+handle_svr_op_event at lp 51, type 4
+handle_svr_op_event at lp 51, type 4
+handle_svr_op_event at lp 51, type 4
+handle_svr_op_event at lp 51, type 4
+handle_svr_op_event at lp 51, type 4
+handle_svr_op_event at lp 51, type 4
+handle_svr_op_event at lp 51, type 4
+handle_svr_op_event at lp 51, type 4
+handle_svr_op_event at lp 51, type 4
+handle_svr_op_event at lp 51, type 4
+handle_svr_op_event at lp 51, type 4
+handle_svr_op_event at lp 51, type 4
+handle_svr_op_event at lp 51, type 4
+handle_client_op_loop_event(), lp 31.
+Client rank 31 hit barrier.
+handle_client_op_loop_event(), lp 7.
+Client rank 7 hit barrier.
+handle_client_op_loop_event(), lp 30.
+Client rank 30 hit barrier.
+handle_client_op_loop_event(), lp 37.
+Client rank 37 hit barrier.
+handle_client_op_loop_event(), lp 8.
+Client rank 8 hit barrier.
+handle_client_op_loop_event(), lp 19.
+Client rank 19 hit barrier.
+handle_client_op_loop_event(), lp 12.
+Client rank 12 hit barrier.
+handle_client_op_loop_event(), lp 40.
+Client rank 40 hit barrier.
+handle_client_op_loop_event(), lp 16.
+Client rank 16 hit barrier.
+handle_client_op_loop_event(), lp 9.
+Client rank 9 hit barrier.
+handle_client_op_loop_event(), lp 46.
+Client rank 46 hit barrier.
+handle_client_op_loop_event(), lp 23.
+Client rank 23 hit barrier.
+handle_client_op_loop_event(), lp 3.
+Client rank 3 hit barrier.
+handle_client_op_loop_event(), lp 39.
+Client rank 39 hit barrier.
+handle_client_op_loop_event(), lp 24.
+Client rank 24 hit barrier.
+handle_client_op_loop_event(), lp 4.
+Client rank 4 hit barrier.
+handle_client_op_loop_event(), lp 14.
+Client rank 14 hit barrier.
+handle_client_op_loop_event(), lp 15.
+Client rank 15 hit barrier.
+handle_client_op_loop_event(), lp 11.
+Client rank 11 hit barrier.
+handle_client_op_loop_event(), lp 10.
+Client rank 10 hit barrier.
+handle_client_op_loop_event(), lp 33.
+Client rank 33 hit barrier.
+handle_client_op_loop_event(), lp 34.
+Client rank 34 hit barrier.
+handle_client_op_loop_event(), lp 42.
+Client rank 42 hit barrier.
+handle_client_op_loop_event(), lp 43.
+Client rank 43 hit barrier.
+handle_client_op_loop_event(), lp 17.
+Client rank 17 hit barrier.
+handle_client_op_loop_event(), lp 36.
+Client rank 36 hit barrier.
+handle_client_op_loop_event(), lp 6.
+Client rank 6 hit barrier.
+handle_client_op_loop_event(), lp 35.
+Client rank 35 hit barrier.
+handle_client_op_loop_event(), lp 28.
+Client rank 28 hit barrier.
+handle_client_op_loop_event(), lp 21.
+Client rank 21 hit barrier.
+handle_client_op_loop_event(), lp 13.
+Client rank 13 hit barrier.
+handle_client_op_loop_event(), lp 25.
+Client rank 25 hit barrier.
+handle_client_op_loop_event(), lp 22.
+Client rank 22 hit barrier.
+handle_client_op_loop_event(), lp 29.
+Client rank 29 hit barrier.
+handle_client_op_loop_event(), lp 32.
+Client rank 32 hit barrier.
+handle_client_op_loop_event(), lp 45.
+Client rank 45 hit barrier.
+handle_client_op_loop_event(), lp 41.
+Client rank 41 hit barrier.
+handle_client_op_loop_event(), lp 47.
+Client rank 47 hit barrier.
+handle_client_op_loop_event(), lp 1.
+Client rank 1 hit barrier.
+handle_client_op_loop_event(), lp 2.
+Client rank 2 hit barrier.
+handle_client_op_loop_event(), lp 20.
+Client rank 20 hit barrier.
+handle_client_op_loop_event(), lp 38.
+Client rank 38 hit barrier.
+handle_client_op_loop_event(), lp 26.
+Client rank 26 hit barrier.
+handle_client_op_loop_event(), lp 5.
+Client rank 5 hit barrier.
+handle_client_op_loop_event(), lp 27.
+Client rank 27 hit barrier.
+handle_client_op_loop_event(), lp 44.
+Client rank 44 hit barrier.
+handle_client_op_loop_event(), lp 18.
+Client rank 18 hit barrier.
+handle_client_op_loop_event(), lp 0.
+Client rank 0 hit barrier.
+handle_client_op_loop_event(), lp 6.
+Client rank 6 completed workload.
+handle_client_op_loop_event(), lp 29.
+Client rank 29 completed workload.
+handle_client_op_loop_event(), lp 17.
+Client rank 17 completed workload.
+handle_client_op_loop_event(), lp 37.
+Client rank 37 completed workload.
+handle_client_op_loop_event(), lp 26.
+Client rank 26 completed workload.
+handle_client_op_loop_event(), lp 34.
+Client rank 34 completed workload.
+handle_client_op_loop_event(), lp 22.
+Client rank 22 completed workload.
+handle_client_op_loop_event(), lp 7.
+Client rank 7 completed workload.
+handle_client_op_loop_event(), lp 38.
+Client rank 38 completed workload.
+handle_client_op_loop_event(), lp 19.
+Client rank 19 completed workload.
+handle_client_op_loop_event(), lp 13.
+Client rank 13 completed workload.
+handle_client_op_loop_event(), lp 23.
+Client rank 23 completed workload.
+handle_client_op_loop_event(), lp 39.
+Client rank 39 completed workload.
+handle_client_op_loop_event(), lp 31.
+Client rank 31 completed workload.
+handle_client_op_loop_event(), lp 35.
+Client rank 35 completed workload.
+handle_client_op_loop_event(), lp 47.
+Client rank 47 completed workload.
+handle_client_op_loop_event(), lp 15.
+Client rank 15 completed workload.
+handle_client_op_loop_event(), lp 10.
+Client rank 10 completed workload.
+handle_client_op_loop_event(), lp 2.
+Client rank 2 completed workload.
+handle_client_op_loop_event(), lp 46.
+Client rank 46 completed workload.
+handle_client_op_loop_event(), lp 20.
+Client rank 20 completed workload.
+handle_client_op_loop_event(), lp 41.
+Client rank 41 completed workload.
+handle_client_op_loop_event(), lp 30.
+Client rank 30 completed workload.
+handle_client_op_loop_event(), lp 43.
+Client rank 43 completed workload.
+handle_client_op_loop_event(), lp 45.
+Client rank 45 completed workload.
+handle_client_op_loop_event(), lp 16.
+Client rank 16 completed workload.
+handle_client_op_loop_event(), lp 8.
+Client rank 8 completed workload.
+handle_client_op_loop_event(), lp 33.
+Client rank 33 completed workload.
+handle_client_op_loop_event(), lp 27.
+Client rank 27 completed workload.
+handle_client_op_loop_event(), lp 3.
+Client rank 3 completed workload.
+handle_client_op_loop_event(), lp 1.
+Client rank 1 completed workload.
+handle_client_op_loop_event(), lp 42.
+Client rank 42 completed workload.
+handle_client_op_loop_event(), lp 21.
+Client rank 21 completed workload.
+handle_client_op_loop_event(), lp 0.
+Client rank 0 completed workload.
+handle_client_op_loop_event(), lp 18.
+Client rank 18 completed workload.
+handle_client_op_loop_event(), lp 11.
+Client rank 11 completed workload.
+handle_client_op_loop_event(), lp 12.
+Client rank 12 completed workload.
+handle_client_op_loop_event(), lp 32.
+Client rank 32 completed workload.
+handle_client_op_loop_event(), lp 24.
+Client rank 24 completed workload.
+handle_client_op_loop_event(), lp 25.
+Client rank 25 completed workload.
+handle_client_op_loop_event(), lp 9.
+Client rank 9 completed workload.
+handle_client_op_loop_event(), lp 5.
+Client rank 5 completed workload.
+handle_client_op_loop_event(), lp 36.
+Client rank 36 completed workload.
+handle_client_op_loop_event(), lp 14.
+Client rank 14 completed workload.
+handle_client_op_loop_event(), lp 4.
+Client rank 4 completed workload.
+handle_client_op_loop_event(), lp 28.
+Client rank 28 completed workload.
+handle_client_op_loop_event(), lp 44.
+Client rank 44 completed workload.
+handle_client_op_loop_event(), lp 40.
+Client rank 40 completed workload.
+*** END SIMULATION ***
+
+
+	: Running Time = 0.0006 seconds
+
+TW Library Statistics:
+	Total Events Processed                                     241
+	Events Aborted (part of RBs)                                 0
+	Events Rolled Back                                           0
+	Event Ties Detected in PE Queues                             0
+	Efficiency                                              100.00 %
+	Total Remote (shared mem) Events Processed                   0
+	Percent Remote Events                                     0.00 %
+	Total Remote (network) Events Processed                      0
+	Percent Remote Events                                     0.00 %
+
+	Total Roll Backs                                             0
+	Primary Roll Backs                                           0
+	Secondary Roll Backs                                         0
+	Fossil Collect Attempts                                      0
+	Total GVT Computations                                       0
+
+	Net Events Processed                                       241
+	Event Rate (events/sec)                               380126.2
+	Total Events Scheduled Past End Time                         0
+
+TW Memory Statistics:
+	Events Allocated                                         52048
+	Memory Allocated                                         38386
+	Memory Wasted                                              715
+
+TW Data Structure sizes in bytes (sizeof):
+	PE struct                                                  592
+	KP struct                                                  104
+	LP struct                                                   56
+	LP Model struct                                              8
+	LP RNGs                                                     80
+	Total LP                                                   144
+	Event struct                                               120
+	Event struct with Model                                    632
+
+TW Clock Cycle Statistics (MAX values in secs at 1.0000 GHz):
+	Priority Queue (enq/deq)                                0.0000
+	AVL Tree (insert/delete)                                0.0000
+	LZ4 (de)compression                                     0.0000
+	Buddy system                                            0.0000
+	Event Processing                                        0.0000
+	Event Cancel                                            0.0000
+	Event Abort                                             0.0000
+
+	GVT                                                     0.0000
+	Fossil Collect                                          0.0000
+	Primary Rollbacks                                       0.0000
+	Network Read                                            0.0000
+	Total Time (Note: Using Running Time above for Speedup)      0.0000
+
+TW GVT Statistics: MPI AllReduce
+	GVT Interval                                                16
+	Batch Size                                                  16
+
+	Forced GVT                                                   0
+	Total GVT Computations                                       0
+	Total All Reduce Calls                                       0
+	Average Reduction / GVT                                   -nan
+LP-IO: writing output to codes-workload-test-results-15256-1434487825/
+LP-IO: data files:
+   codes-workload-test-results-15256-1434487825/servers
+   codes-workload-test-results-15256-1434487825/compute_nodes

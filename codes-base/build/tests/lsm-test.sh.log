@@ -1,0 +1,94 @@
+tests/lsm-test --sync=1 --conf=../tests/conf/lsm-test.conf 
+
+Tue Jun 16 20:50:25 2015
+
+ROSS Revision: 53aac01bd3576c3d0ed631823b8db6a6f8788f59
+
+tw_net_start: Found world size to be 1 
+
+ROSS Core Configuration: 
+	Total Nodes                                                  1
+	Total Processors                                   [Nodes (1) x PE_per_Node (1)] 1
+	Total KPs                                          [Nodes (1) x KPs (16)] 16
+	Total LPs                                                    2
+	Simulation End Time                                31536000000000000.00
+	LP-to-PE Mapping                                   model defined
+
+
+ROSS Event Memory Allocation:
+	Model events                                               513
+	Network events                                           50000
+	Total events                                             50512
+
+*** START SEQUENTIAL SIMULATION ***
+
+server 0 : disk_rate:50.000000 disk_seek:2000.000000
+*** END SIMULATION ***
+
+server 0 : size:1048576 requests:2000 time:5.204170 rate:384.307223
+
+	: Running Time = 0.0009 seconds
+
+TW Library Statistics:
+	Total Events Processed                                    6001
+	Events Aborted (part of RBs)                                 0
+	Events Rolled Back                                           0
+	Event Ties Detected in PE Queues                             0
+	Efficiency                                              100.00 %
+	Total Remote (shared mem) Events Processed                   0
+	Percent Remote Events                                     0.00 %
+	Total Remote (network) Events Processed                      0
+	Percent Remote Events                                     0.00 %
+
+	Total Roll Backs                                             0
+	Primary Roll Backs                                           0
+	Secondary Roll Backs                                         0
+	Fossil Collect Attempts                                      0
+	Total GVT Computations                                       0
+
+	Net Events Processed                                      6001
+	Event Rate (events/sec)                              6969802.6
+	Total Events Scheduled Past End Time                         0
+
+TW Memory Statistics:
+	Events Allocated                                         50512
+	Memory Allocated                                         37429
+	Memory Wasted                                              724
+
+TW Data Structure sizes in bytes (sizeof):
+	PE struct                                                  592
+	KP struct                                                  104
+	LP struct                                                   56
+	LP Model struct                                            992
+	LP RNGs                                                     80
+	Total LP                                                  1128
+	Event struct                                               120
+	Event struct with Model                                    632
+
+TW Clock Cycle Statistics (MAX values in secs at 1.0000 GHz):
+	Priority Queue (enq/deq)                                0.0000
+	AVL Tree (insert/delete)                                0.0000
+	LZ4 (de)compression                                     0.0000
+	Buddy system                                            0.0000
+	Event Processing                                        0.0000
+	Event Cancel                                            0.0000
+	Event Abort                                             0.0000
+
+	GVT                                                     0.0000
+	Fossil Collect                                          0.0000
+	Primary Rollbacks                                       0.0000
+	Network Read                                            0.0000
+	Total Time (Note: Using Running Time above for Speedup)      0.0000
+
+TW GVT Statistics: MPI AllReduce
+	GVT Interval                                                16
+	Batch Size                                                  16
+
+	Forced GVT                                                   0
+	Total GVT Computations                                       0
+	Total All Reduce Calls                                       0
+	Average Reduction / GVT                                   -nan
+LP-IO: writing output to lsm-test-15279-1434487825/
+LP-IO: data files:
+   lsm-test-15279-1434487825/lsm-category-all
+   lsm-test-15279-1434487825/lsm-category-test
