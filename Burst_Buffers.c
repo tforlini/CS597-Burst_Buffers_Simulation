@@ -9,7 +9,7 @@
 #include "codes-base/codes/jenkins-hash.h"
 #include "codes-base/codes/codes.h"
 #include "codes-base/codes/lp-msg.h"
-#include <codesnet/codes/model-net.h>
+#include <codes-net/codes/model-net.h>
 #include <assert.h>
 
 /**** BEGIN SIMULATION DATA STRUCTURES ****/
