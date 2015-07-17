@@ -9,4 +9,18 @@
 	</buildSpec>
 	<natures>
 	</natures>
+	<variableList>
+		<variable>
+			<name>ROSS</name>
+			<value>file:/C:/Users/tofor_000/Desktop/CS597-Burst_Buffers_Simulation/ROSS</value>
+		</variable>
+		<variable>
+			<name>codesbase</name>
+			<value>file:/C:/Users/tofor_000/Desktop/CS597-Burst_Buffers_Simulation/codes-base</value>
+		</variable>
+		<variable>
+			<name>codesnet</name>
+			<value>file:/C:/Users/tofor_000/Desktop/CS597-Burst_Buffers_Simulation/codes-net</value>
+		</variable>
+	</variableList>
 </projectDescription>
