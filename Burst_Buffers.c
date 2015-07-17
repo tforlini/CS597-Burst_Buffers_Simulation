@@ -4,12 +4,12 @@
  *
  */
 
-#include "codes/codes_mapping.h"
-#include "codes/lp-type-lookup.h"
-#include "codes/jenkins-hash.h"
-#include "codes/codes.h"
-#include "codes/lp-msg.h"
-#include <codes/model-net.h>
+#include "codes-base/codes/codes_mapping.h"
+#include <codes-base/codes/lp-type-lookup.h>
+#include "codes-base/codes/jenkins-hash.h"
+#include "codes-base/codes/codes.h"
+#include "codes-base/codes/lp-msg.h"
+#include <codesnet/codes/model-net.h>
 #include <assert.h>
 
 /**** BEGIN SIMULATION DATA STRUCTURES ****/
@@ -95,6 +95,7 @@ void node_lp_init(
     // model-net, other events
     ns->id_clust = codes_mapping_get_lp_relative_id(lp->gid, 1, 0);
     int id_all = codes_mapping_get_lp_relative_id(lp->gid, 0, 0);
+
     // track which cluster we're in
     ns->is_in_client = (id_all < num_client_nodes);
 
