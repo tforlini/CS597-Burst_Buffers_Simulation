@@ -5,7 +5,7 @@
  */
 
 #include "codes-base/codes/codes_mapping.h"
-#include <codes-base/codes/lp-type-lookup.h>
+#include "codes-base/codes/lp-type-lookup.h"
 #include "codes-base/codes/jenkins-hash.h"
 #include "codes-base/codes/codes.h"
 #include "codes-base/codes/lp-msg.h"
