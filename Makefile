@@ -30,8 +30,8 @@ CC = $(shell $(ROSS)/bin/ross-config --cc)
 
 
 
- Burst_Buffer: Burst_Buffers.c
+ Burst_Buffers: Burst_Buffers.c
 
 
 
- clean: rm -f Burst_Buffer
+ clean: rm -f Burst_Buffers
