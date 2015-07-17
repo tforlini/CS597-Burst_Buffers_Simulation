@@ -13,4 +13,4 @@ then
 fi
 echo $SYNC
 
-mpirun -np $NP ./Burst_Buffer --sync=$SYNC --codes-config=pvfs_simplenet.conf
+mpirun -np $NP ./Burst_Buffers --sync=$SYNC --codes-config=pvfs_simplenet.conf
