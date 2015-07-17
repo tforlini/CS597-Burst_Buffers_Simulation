@@ -19,8 +19,8 @@ static int node_magic;
 static int forwarder_magic;
 
 /* counts of the various types of nodes in the example system */
-static int num_client_nodes, num_svr_nodes;
-static int num_client_forwarders, num_svr_forwarders;
+static int num_client_nodes, num_svr_nodes, num_burst_buffer_nodes;
+static int num_client_forwarders, num_svr_forwarders, num_burst_buffer_forwarders;
 
 /* reqs to perform (provided by config file) */
 static int num_reqs;
@@ -38,6 +38,12 @@ static char *num_reqs_key = "num_reqs";
 static char *payload_sz_key = "payload_sz";
 static char *pvfs_file_sz_key = "pvfs_file_sz";
 
+/*The local disk bandwidth of Burst Buffers*/
+static float burst_buffer_local_mu;
+static char *param_group_burst_buffer = "io_forwarding";
+static char *size = "payload_sz";
+static char *file_size = "burst_buffer_file_sz";
+
 /* event types */
 enum node_event
 {
@@ -48,6 +54,7 @@ enum node_event
 
 typedef struct node_state_s {
     int is_in_client;    // whether we're in client's or svr's cluster
+    int is_in_server;
     int id_clust;     // my index within the cluster
     int num_processed;// number of requests processed
     tw_stime start_ts;    /* time that we started sending requests */
@@ -69,6 +76,7 @@ enum forwarder_event
 typedef struct forwarder_state_s {
     int id; // index w.r.t. forwarders in my group
     int is_in_client;
+    int is_in_server;
     int fwd_node_count;
     int fwd_forwarder_count;
 } forwarder_state;
@@ -85,9 +93,7 @@ typedef struct forwarder_msg_s {
 static tw_stime ns_to_s(tw_stime ns);
 /**** BEGIN IMPLEMENTATIONS ****/
 
-void node_lp_init(
-        node_state * ns,
-        tw_lp * lp){
+void node_lp_init(node_state * ns, tw_lp * lp){
     //printf("In node_lp_init\n");
     ns->num_processed = 0;
     // nodes are addressed in their logical id space (0...num_client_nodes-1 and
@@ -98,7 +104,7 @@ void node_lp_init(
 
     // track which cluster we're in
     ns->is_in_client = (id_all < num_client_nodes);
-
+    ns->is_in_server = ()
     // send a self kickoff event
     tw_event *e = codes_event_new(lp->gid, codes_local_latency(lp), lp);
     node_msg *m = tw_event_data(e);
@@ -118,14 +124,10 @@ void node_finalize(
     }
     else{
         //printf("num_svr_nodes is %d\n",num_svr_nodes);
-        mult = (num_client_nodes / num_svr_nodes) +
-            ((num_client_nodes % num_svr_nodes) > ns->id_clust);
+        mult = (num_client_nodes / num_svr_nodes) + ((num_client_nodes % num_svr_nodes) > ns->id_clust);
     }
     if (ns->num_processed != num_reqs*mult){
-        fprintf(stderr,
-                "%s node %d, lp %lu: processed %d (expected %d)\n",
-                ns->is_in_client ? "client" : "svr", ns->id_clust, lp->gid,
-                ns->num_processed, num_reqs*mult);
+        fprintf(stderr,"%s node %d, lp %lu: processed %d (expected %d)\n",ns->is_in_client ? "client" : "svr", ns->id_clust, lp->gid,ns->num_processed, num_reqs*mult);
     }
 
 float io_noise = 0.05 * tw_rand_integer(lp->rng,
