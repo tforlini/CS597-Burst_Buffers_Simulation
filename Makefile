@@ -30,7 +30,7 @@ CC = $(shell $(ROSS)/bin/ross-config --cc)
 
 
 
- pvfs: Burst_Buffer.c
+ pvfs: Burst_Buffers.c
 
 
 
