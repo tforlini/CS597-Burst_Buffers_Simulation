@@ -127,9 +127,9 @@ void node_finalize(node_state * ns,tw_lp * lp){
     }
     if (ns->num_processed != num_reqs*mult){
         fprintf(stderr,"%s node %d, lp %lu: processed %d (expected %d)\n",ns->is_in_client ? "client" : "svr", ns->id_clust, lp->gid,ns->num_processed, num_reqs*mult);
-        printf("%s node %d, lp %lu: processed %d (expected %d)\n",ns->is_in_client ? "client" : "svr", ns->id_clust, lp->gid,ns->num_processed, num_reqs*mult);
-    }
 
+    }
+    printf("%s node %d, lp %lu: processed %d (expected %d)\n",ns->is_in_client ? "client" : "svr", ns->id_clust, lp->gid,ns->num_processed, num_reqs*mult);
 float io_noise = 0.05 * tw_rand_integer(lp->rng,
                 ns->pvfs_ts_remote_write,ns->pvfs_ts_remote_write);
         long rand_idx = 0;
