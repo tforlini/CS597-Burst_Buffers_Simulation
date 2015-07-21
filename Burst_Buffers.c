@@ -104,6 +104,7 @@ void node_lp_init(node_state * ns, tw_lp * lp){
 
     // track which cluster we're in
     ns->is_in_client = (id_all < num_client_nodes);
+    ns->is_in_server = (id_all < (num_svr_nodes + num_client_nodes) && id_all >= num_client_nodes);
     printf("id_all= %d\nnum_client_nodes= %d\n",id_all,num_client_nodes);
     // send a self kickoff event
     tw_event *e = codes_event_new(lp->gid, codes_local_latency(lp), lp);
@@ -122,7 +123,7 @@ void node_finalize(
     if (ns->is_in_client){
         mult = 1;
     }
-    else{
+    else if(ns->is_in_server){
         //printf("num_svr_nodes is %d\n",num_svr_nodes);
         mult = (num_client_nodes / num_svr_nodes) + ((num_client_nodes % num_svr_nodes) > ns->id_clust);
     }
@@ -145,10 +146,7 @@ float io_noise = 0.05 * tw_rand_integer(lp->rng,
 }
 
 /* event type handlers */
-void handle_node_next(
-        node_state * ns,
-        node_msg * m,
-        tw_lp * lp){
+void handle_node_next(node_state * ns,node_msg * m,tw_lp * lp){
     //printf("In handle_node_next\n");
     // we must be in cluster client for this function
     assert(ns->is_in_client);
@@ -172,13 +170,11 @@ void handle_node_next(
 
     // as the relative forwarder IDs are with respect to groups, the group
     // name must be used
-    tw_lpid dest_fwd_lpid = codes_mapping_get_lpid_from_relative(dest_fwd_id,
-            "client_FORWARDERS", "forwarder", NULL, 0);
+    tw_lpid dest_fwd_lpid = codes_mapping_get_lpid_from_relative(dest_fwd_id,"client_FORWARDERS", "forwarder", NULL, 0);
     //printf("dest_fwd_lpid is %d\n",(int)dest_fwd_lpid);
     // as cluster nodes have only one network type (+ annotation), no need to
     // use annotation-specific messaging
-    model_net_event_annotated(net_id_client, "client","req", dest_fwd_lpid, payload_sz, 0.0,
-            sizeof(m_fwd), &m_fwd, 0, NULL, lp);
+    model_net_event_annotated(net_id_client, "client","req", dest_fwd_lpid, payload_sz, 0.0,sizeof(m_fwd), &m_fwd, 0, NULL, lp);
 }
 
 void handle_node_recv_req(
@@ -349,7 +345,7 @@ void handle_forwarder_recv(
         category = "ack";
         net_id=net_id_client;
     }
-    else{
+    else if(ns->is_in_server){
         dest_group = "svr_CLUSTER";
         annotation = "svr";
         category = "req";
