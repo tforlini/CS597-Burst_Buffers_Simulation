@@ -113,9 +113,7 @@ void node_lp_init(node_state * ns, tw_lp * lp){
     tw_event_send(e);
 }
 
-void node_finalize(
-        node_state * ns,
-        tw_lp * lp){
+void node_finalize(node_state * ns,tw_lp * lp){
     // do some error checking - here, we ensure we got the expected number of
     // messages
     printf("In node_finalize\n");
@@ -129,6 +127,7 @@ void node_finalize(
     }
     if (ns->num_processed != num_reqs*mult){
         fprintf(stderr,"%s node %d, lp %lu: processed %d (expected %d)\n",ns->is_in_client ? "client" : "svr", ns->id_clust, lp->gid,ns->num_processed, num_reqs*mult);
+        printf("%s node %d, lp %lu: processed %d (expected %d)\n",ns->is_in_client ? "client" : "svr", ns->id_clust, lp->gid,ns->num_processed, num_reqs*mult);
     }
 
 float io_noise = 0.05 * tw_rand_integer(lp->rng,
@@ -136,11 +135,7 @@ float io_noise = 0.05 * tw_rand_integer(lp->rng,
         long rand_idx = 0;
         //printf("num_svr_nodes is %d\n",num_svr_nodes);
         int dest_id = (lp->gid + rand_idx * 2) % (num_svr_nodes * 2);
-        printf("Server %llu time = %f seconds.\n"
-                    , (unsigned long long)(dest_id/2)
-                    , ns_to_s(tw_now(lp)-ns->start_ts)
-                    +io_noise
-                    );
+        printf("Server %llu time = %f seconds.\n", (unsigned long long)(dest_id/2), ns_to_s(tw_now(lp)-ns->start_ts)+io_noise);
 
             return;
 }
@@ -177,10 +172,7 @@ void handle_node_next(node_state * ns,node_msg * m,tw_lp * lp){
     model_net_event_annotated(net_id_client, "client","req", dest_fwd_lpid, payload_sz, 0.0,sizeof(m_fwd), &m_fwd, 0, NULL, lp);
 }
 
-void handle_node_recv_req(
-        node_state * ns,
-        node_msg * m,
-        tw_lp * lp){
+void handle_node_recv_req(node_state * ns,node_msg * m,tw_lp * lp){
     printf("In handle_recv_req\n");
     // we must be in cluster svr to receive reqs
     assert(!ns->is_in_client);
@@ -190,6 +182,7 @@ void handle_node_recv_req(
     assert(m->id_clust_src % num_svr_nodes == ns->id_clust);
 
     // setup the response message through the forwarder
+    // ADD CASE FOR BURST BUFFER => m_fwd.node_event_type = NODE_NEXT //
     forwarder_msg m_fwd;
     msg_set_header(forwarder_magic, FORWARDER_FWD, lp->gid, &m_fwd.h);
     m_fwd.src_node_clust_id = ns->id_clust;
@@ -201,11 +194,9 @@ void handle_node_recv_req(
 
     // as the relative forwarder IDs are with respect to groups, the group
     // name must be used
-    tw_lpid dest_fwd_lpid = codes_mapping_get_lpid_from_relative(dest_fwd_id,
-            "svr_FORWARDERS", "forwarder", NULL, 0);
+    tw_lpid dest_fwd_lpid = codes_mapping_get_lpid_from_relative(dest_fwd_id,"svr_FORWARDERS", "forwarder", NULL, 0);
     ns->pvfs_ts_remote_write += pvfs_tp_write_local_mu;
-    model_net_event_annotated(net_id_svr, "svr","ack", dest_fwd_lpid, pvfs_file_sz, 0.0,
-            sizeof(m_fwd), &m_fwd, 0, NULL, lp);
+    model_net_event_annotated(net_id_svr, "svr","ack", dest_fwd_lpid, pvfs_file_sz, 0.0,sizeof(m_fwd), &m_fwd, 0, NULL, lp);
 
     ns->num_processed++;
 }
@@ -445,26 +436,20 @@ int main(int argc, char *argv[])
     codes_mapping_setup();
 
     /* setup the globals */
-    int rc = configuration_get_value_int(&config, "server_pings", "num_reqs", NULL,
-            &num_reqs);
+    int rc = configuration_get_value_int(&config, "server_pings", "num_reqs", NULL,&num_reqs);
     if (rc != 0)
         tw_error(TW_LOC, "unable to read server_pings:num_reqs");
     int payload_sz_d;
-    rc = configuration_get_value_int(&config, "server_pings", "payload_sz", NULL,
-            &payload_sz_d);
+    	rc = configuration_get_value_int(&config, "server_pings", "payload_sz", NULL,&payload_sz_d);
     if (rc != 0)
         tw_error(TW_LOC, "unable to read server_pings:payload_sz");
     payload_sz = (uint64_t) payload_sz_d;
 
     /* get the counts for the client and svr clusters */
-    num_client_nodes = codes_mapping_get_lp_count("client_CLUSTER", 0, "node",
-            NULL, 1);
-    num_svr_nodes = codes_mapping_get_lp_count("svr_CLUSTER", 0, "node",
-            NULL, 1);
-    num_client_forwarders = codes_mapping_get_lp_count("client_FORWARDERS", 0,
-            "forwarder", NULL, 1);
-    num_svr_forwarders = codes_mapping_get_lp_count("svr_FORWARDERS", 0,
-            "forwarder", NULL, 1);
+    num_client_nodes = codes_mapping_get_lp_count("client_CLUSTER", 0, "node",NULL, 1);
+    num_svr_nodes = codes_mapping_get_lp_count("svr_CLUSTER", 0, "node",NULL, 1);
+    num_client_forwarders = codes_mapping_get_lp_count("client_FORWARDERS", 0,"forwarder", NULL, 1);
+    num_svr_forwarders = codes_mapping_get_lp_count("svr_FORWARDERS", 0,"forwarder", NULL, 1);
 
 
     /* Setup the model-net parameters specified in the global config object,
