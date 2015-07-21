@@ -104,7 +104,6 @@ void node_lp_init(node_state * ns, tw_lp * lp){
 
     // track which cluster we're in
     ns->is_in_client = (id_all < num_client_nodes);
-    ns->is_in_server = ()
     // send a self kickoff event
     tw_event *e = codes_event_new(lp->gid, codes_local_latency(lp), lp);
     node_msg *m = tw_event_data(e);
