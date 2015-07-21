@@ -104,7 +104,7 @@ void node_lp_init(node_state * ns, tw_lp * lp){
 
     // track which cluster we're in
     ns->is_in_client = (id_all < num_client_nodes);
-    ns->is_in_server = (id_all < (num_svr_nodes + num_client_nodes) && id_all >= num_client_nodes);
+    //ns->is_in_server = (id_all < (num_svr_nodes + num_client_nodes) && (id_all >= num_client_nodes));
     printf("id_all= %d\nnum_client_nodes= %d\n",id_all,num_client_nodes);
     // send a self kickoff event
     tw_event *e = codes_event_new(lp->gid, codes_local_latency(lp), lp);
@@ -123,7 +123,7 @@ void node_finalize(
     if (ns->is_in_client){
         mult = 1;
     }
-    else if(ns->is_in_server){
+    else /*if(ns->is_in_server)*/{
         //printf("num_svr_nodes is %d\n",num_svr_nodes);
         mult = (num_client_nodes / num_svr_nodes) + ((num_client_nodes % num_svr_nodes) > ns->id_clust);
     }
@@ -315,16 +315,14 @@ void handle_forwarder_fwd(
 
     // compute the ROSS id corresponding to the dest forwarder
     //printf("mod is %d\n",mod);
-    tw_lpid dest_lpid = codes_mapping_get_lpid_from_relative(
-            ns->id % mod, dest_group, "forwarder", NULL, 0);
+    tw_lpid dest_lpid = codes_mapping_get_lpid_from_relative(ns->id % mod, dest_group, "forwarder", NULL, 0);
 
     forwarder_msg m_fwd = *m;
     msg_set_header(forwarder_magic, FORWARDER_RECV, lp->gid, &m_fwd.h);
 
     // here, we need to use the unannotated forwarding network, so we
     // use the annotation version of model_net_event
-    model_net_event_annotated(net_id_forwarding, NULL, category, dest_lpid,
-            payload_sz, 0.0, sizeof(m_fwd), &m_fwd, 0, NULL, lp);
+    model_net_event_annotated(net_id_forwarding, NULL, category, dest_lpid,payload_sz, 0.0, sizeof(m_fwd), &m_fwd, 0, NULL, lp);
 
     ns->fwd_node_count++;
 }
@@ -345,16 +343,14 @@ void handle_forwarder_recv(
         category = "ack";
         net_id=net_id_client;
     }
-    else if(ns->is_in_server){
+    else /*if(ns->is_in_server)*/{
         dest_group = "svr_CLUSTER";
         annotation = "svr";
         category = "req";
         net_id=net_id_svr;
     }
 
-    tw_lpid dest_lpid = codes_mapping_get_lpid_from_relative(
-                m->dest_node_clust_id, dest_group, "node",
-                NULL, 0);
+    tw_lpid dest_lpid = codes_mapping_get_lpid_from_relative(m->dest_node_clust_id, dest_group, "node",NULL, 0);
 
     node_msg m_node;
     msg_set_header(node_magic, m->node_event_type, lp->gid, &m_node.h);
@@ -362,8 +358,7 @@ void handle_forwarder_recv(
 
     // here, we need to use the client or svr cluster's internal network, so we use
     // the annotated version of model_net_event
-    model_net_event_annotated(net_id, annotation, category, dest_lpid,
-            payload_sz, 0.0, sizeof(m_node), &m_node, 0, NULL, lp);
+    model_net_event_annotated(net_id, annotation, category, dest_lpid,payload_sz, 0.0, sizeof(m_node), &m_node, 0, NULL, lp);
 
     ns->fwd_forwarder_count++;
 }
