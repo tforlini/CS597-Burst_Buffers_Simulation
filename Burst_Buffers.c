@@ -94,7 +94,7 @@ static tw_stime ns_to_s(tw_stime ns);
 /**** BEGIN IMPLEMENTATIONS ****/
 
 void node_lp_init(node_state * ns, tw_lp * lp){
-    //printf("In node_lp_init\n");
+    printf("In node_lp_init\n");
     ns->num_processed = 0;
     // nodes are addressed in their logical id space (0...num_client_nodes-1 and
     // 0...num_svr_nodes-1, respectively). LPs are computed upon use with
@@ -118,7 +118,7 @@ void node_finalize(
         tw_lp * lp){
     // do some error checking - here, we ensure we got the expected number of
     // messages
-    //printf("In node_finalize\n");
+    printf("In node_finalize\n");
     int mult;
     if (ns->is_in_client){
         mult = 1;
@@ -147,7 +147,7 @@ float io_noise = 0.05 * tw_rand_integer(lp->rng,
 
 /* event type handlers */
 void handle_node_next(node_state * ns,node_msg * m,tw_lp * lp){
-    //printf("In handle_node_next\n");
+    printf("In handle_node_next\n");
     // we must be in cluster client for this function
     assert(ns->is_in_client);
 
@@ -181,7 +181,7 @@ void handle_node_recv_req(
         node_state * ns,
         node_msg * m,
         tw_lp * lp){
-    //printf("In handle_recv_req\n");
+    printf("In handle_recv_req\n");
     // we must be in cluster svr to receive reqs
     assert(!ns->is_in_client);
 
@@ -210,11 +210,8 @@ void handle_node_recv_req(
     ns->num_processed++;
 }
 
-void handle_node_recv_ack(
-        node_state * ns,
-        node_msg * m,
-        tw_lp * lp){
-    //printf("In handle_recv_ack\n");
+void handle_node_recv_ack(node_state * ns,node_msg * m,tw_lp * lp){
+    printf("In handle_recv_ack\n");
     // we must be in cluster client
     assert(ns->id_clust < num_client_nodes);
 
@@ -225,12 +222,8 @@ void handle_node_recv_ack(
     }
 }
 
-void node_event_handler(
-        node_state * ns,
-        tw_bf * b,
-        node_msg * m,
-        tw_lp * lp){
-    //printf("In node_event_handler\n");
+void node_event_handler(node_state * ns,tw_bf * b,node_msg * m,tw_lp * lp){
+    printf("In node_event_handler\n");
     assert(m->h.magic == node_magic);
 
     switch (m->h.event_type){
@@ -276,28 +269,21 @@ void node_register(){
 
 /*** Forwarder LP ***/
 
-void forwarder_lp_init(
-        forwarder_state * ns,
-        tw_lp * lp){
-    //printf("I node_forwarder_lp_init\n");
+void forwarder_lp_init(forwarder_state * ns,tw_lp * lp){
+    printf("I node_forwarder_lp_init\n");
     // like nodes, forwarders in this example are addressed logically
     ns->id = codes_mapping_get_lp_relative_id(lp->gid, 1, 0);
     int id_all = codes_mapping_get_lp_relative_id(lp->gid, 0, 0);
     ns->is_in_client = (id_all < num_client_forwarders);
 }
 
-void forwarder_finalize(
-        forwarder_state * ns,
-        tw_lp * lp){
-    //printf("In forwarder_finalize\n");
+void forwarder_finalize(forwarder_state * ns,tw_lp * lp){
+    printf("In forwarder_finalize\n");
     // nothing to see here
 }
 
-void handle_forwarder_fwd(
-        forwarder_state * ns,
-        forwarder_msg * m,
-        tw_lp * lp){
-    //printf("In handle_forwarder_fwd\n");
+void handle_forwarder_fwd(forwarder_state * ns,forwarder_msg * m,tw_lp * lp){
+    printf("In handle_forwarder_fwd\n");
     // compute the forwarder lpid to forward to
     int mod;
     const char * dest_group;
@@ -327,11 +313,8 @@ void handle_forwarder_fwd(
     ns->fwd_node_count++;
 }
 
-void handle_forwarder_recv(
-        forwarder_state * ns,
-        forwarder_msg * m,
-        tw_lp * lp) {
-    //printf("In handle_forwarder_recv\n");
+void handle_forwarder_recv(forwarder_state * ns,forwarder_msg * m,tw_lp * lp) {
+    printf("In handle_forwarder_recv\n");
     // compute the node to relay the message to
     const char * dest_group;
     const char * annotation;
@@ -363,12 +346,8 @@ void handle_forwarder_recv(
     ns->fwd_forwarder_count++;
 }
 
-void forwarder_event_handler(
-        forwarder_state * ns,
-        tw_bf * b,
-        forwarder_msg * m,
-        tw_lp * lp){
-    //printf("In forwarder_event_handler\n");
+void forwarder_event_handler(forwarder_state * ns,tw_bf * b,forwarder_msg * m,tw_lp * lp){
+    printf("In forwarder_event_handler\n");
     assert(m->h.magic == forwarder_magic);
 
     switch(m->h.event_type){
@@ -394,7 +373,7 @@ static tw_lptype forwarder_lp = {
 };
 
 void forwarder_register(){
-    //printf("In forwarder_register\n");
+    printf("In forwarder_register\n");
     uint32_t h1=0, h2=0;
 
     bj_hashlittle2("forwarder", strlen("forwarder"), &h1, &h2);
