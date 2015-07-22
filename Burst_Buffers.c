@@ -496,33 +496,45 @@ int main(int argc, char *argv[])
     /* get the counts for the client and svr clusters */
     num_client_nodes = codes_mapping_get_lp_count("client_CLUSTER", 0, "node",NULL, 1);
     num_svr_nodes = codes_mapping_get_lp_count("svr_CLUSTER", 0, "node",NULL, 1);
+    num_burst_buffer_nodes = codes_mapping_get_lp_count("bb_CLUSTER", 0, "node",NULL, 1);
     num_client_forwarders = codes_mapping_get_lp_count("client_FORWARDERS", 0,"forwarder", NULL, 1);
     num_svr_forwarders = codes_mapping_get_lp_count("svr_FORWARDERS", 0,"forwarder", NULL, 1);
+    num_burst_buffer_forwarders = codes_mapping_get_lp_count("bb_FORWARDERS", 0,"forwarder", NULL, 1);
 
 
     /* Setup the model-net parameters specified in the global config object,
          * returned are the identifier(s) for the network type.
          * 1 ID  -> all the same modelnet model
          * 2 IDs -> clusters are the first id, forwarding network the second
-         * 3 IDs -> cluster client is the first, svr is the second,
-         *          forwarding network the third */
+         * 3 IDs -> client is first, svr and bb second and forwarding network the third
+         * 4 IDs -> cluster client is the first, svr is the second, burst buffer the third and forwarding network the last
+         *          */
         int num_nets;
         int *net_ids = model_net_configure(&num_nets);
-        assert(num_nets <= 3);
+        assert(num_nets <= 4);
         if (num_nets == 1) {
             net_id_client = net_ids[0];
             net_id_svr = net_ids[0];
+            net_id_bb = net_ids[0]
             net_id_forwarding = net_ids[0];
         }
         else if (num_nets == 2) {
             net_id_client = net_ids[0];
             net_id_svr = net_ids[0];
+            net_id_bb = net_ids[0]
             net_id_forwarding = net_ids[1];
         }
-        else {
+        else if (num_nets == 3){
             net_id_client = net_ids[0];
             net_id_svr = net_ids[1];
+            net_id_bb = net_ids[1]
             net_id_forwarding = net_ids[2];
+        }
+        else{
+        	net_id_client = net_ids[0];
+        	net_id_svr = net_ids[1];
+        	net_id_bb = net_ids[2]
+        	net_id_forwarding = net_ids[3];
         }
     free(net_ids);
 
