@@ -339,11 +339,13 @@ void handle_forwarder_fwd(forwarder_state * ns,forwarder_msg * m,tw_lp * lp){
     }
     else if (ns->is_in_server){
     	if(m->node_event_type == NODE_RECV_ack){
+    		printf("Test forwarder ACK\n");
     		mod = num_client_forwarders;
     		dest_group = "client_FORWARDERS";
     		category = "ack";
     	}
     	else if(m->node_event_type == NODE_RECV_req){
+    		printf("Test forwarder REQ\n");
     		mod = num_client_forwarders;
     		dest_group = "client_FORWARDERS";
     		category = "req";
