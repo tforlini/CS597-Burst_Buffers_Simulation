@@ -26,7 +26,7 @@ static int num_client_forwarders, num_svr_forwarders, num_burst_buffer_forwarder
 static int num_reqs;
 static uint64_t payload_sz;
 /* network type for the various clusters */
-static int net_id_client, net_id_svr, net_id_forwarding;
+static int net_id_client, net_id_svr, net_id_forwarding, net_id_bb;
 
 /* network type */
 static int net_id;
@@ -53,10 +53,10 @@ enum node_event
 };
 
 typedef struct node_state_s {
-    int is_in_client;    // whether we're in client's or svr's cluster
-    int is_in_server;
-    int id_clust;     // my index within the cluster
-    int num_processed;// number of requests processed
+    int is_in_client;    // whether we're in client's cluster
+    int is_in_server;	 // whether we're in svr's cluster
+    int id_clust;        // my index within the cluster
+    int num_processed;   // number of requests processed
     tw_stime start_ts;    /* time that we started sending requests */
     tw_stime pvfs_ts_remote_write;      /*pvfsFS timestamp for local write*/
 } node_state;
@@ -128,10 +128,8 @@ void node_finalize(node_state * ns,tw_lp * lp){
     if (ns->num_processed != num_reqs*mult){
         fprintf(stderr,"%s node %d, lp %lu: processed %d (expected %d)\n",ns->is_in_client ? "client" : "svr", ns->id_clust, lp->gid,ns->num_processed, num_reqs*mult);
     }
-    printf("%s node %d, lp %lu: processed %d (expected %d)\n",ns->is_in_client ? "client" : "svr", ns->id_clust, lp->gid,ns->num_processed, num_reqs*mult);
-    printf("mult=%d\n",mult);
-float io_noise = 0.05 * tw_rand_integer(lp->rng,
-                ns->pvfs_ts_remote_write,ns->pvfs_ts_remote_write);
+
+float io_noise = 0.05 * tw_rand_integer(lp->rng,ns->pvfs_ts_remote_write,ns->pvfs_ts_remote_write);
         long rand_idx = 0;
         //printf("num_svr_nodes is %d\n",num_svr_nodes);
         int dest_id = (lp->gid + rand_idx * 2) % (num_svr_nodes * 2);
@@ -177,6 +175,26 @@ void handle_node_recv_req(node_state * ns,node_msg * m,tw_lp * lp){
     // we must be in cluster svr to receive reqs
     assert(!ns->is_in_client);
 
+    /*
+     *
+     * if(!ns->is_in_server && !ns->is_in_client){
+     *
+     * 	assert(m->id_clust_src % num_burst_buffer_nodes == ns->id_clust);
+     * 	forwarder_msg m_fwd;
+     * 	msg_set_header(forwarder_magic, FORWARDER_FWD, lp->gid, &m_fwd.h);
+     *
+     * 	m_fwd.src_node_clust_id = ns->id_clust;
+     * 	m_fwd.dest_node_clust_id = ns->id_clust % num_svr_nodes;
+     * 	m_fwd.node_event_type = NODE_RECV_ack;
+     *
+     * 	int dest_fwd_id = ns->id_clust % num_svr_forwarders;
+     * 	tw_lpid dest_fwd_lpid = codes_mapping_get_lpid_from_relative(dest_fwd_id,"bb_FORWARDERS", "forwarder", NULL, 0);
+     * 	model_net_event_annotated(net_id_svr, "svr","ack", dest_fwd_lpid, pvfs_file_sz, 0.0,sizeof(m_fwd), &m_fwd, 0, NULL, lp);
+     *
+     * }
+     *
+     * */
+
     // check that we received the msg from the expected source
    // printf("In handle_node_recv_req num_svr_nodes is %d\n",num_svr_nodes);
     assert(m->id_clust_src % num_svr_nodes == ns->id_clust);
@@ -211,6 +229,11 @@ void handle_node_recv_ack(node_state * ns,node_msg * m,tw_lp * lp){
     if (ns->num_processed < num_reqs){
         handle_node_next(ns, m, lp);
     }
+}
+
+void handle_node_burst_buffer(node_state * ns,node_msg * m, tw_lp * lp){
+
+	ns->num_processed++;
 }
 
 void node_event_handler(node_state * ns,tw_bf * b,node_msg * m,tw_lp * lp){
