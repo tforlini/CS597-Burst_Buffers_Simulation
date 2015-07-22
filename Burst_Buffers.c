@@ -105,7 +105,7 @@ void node_lp_init(node_state * ns, tw_lp * lp){
     // track which cluster we're in
     ns->is_in_client = (id_all < num_client_nodes);
     ns->is_in_server = (id_all < (num_svr_nodes + num_client_nodes) && (id_all >= num_client_nodes));
-
+    printf("is_in_client=%d\nis_in_svr=%d\n",ns->is_in_client,ns->is_in_server);
     printf("id_all= %d\nnum_client_nodes= %d\n",id_all,num_client_nodes);
     // send a self kickoff event
     tw_event *e = codes_event_new(lp->gid, codes_local_latency(lp), lp);
