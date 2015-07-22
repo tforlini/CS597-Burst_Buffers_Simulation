@@ -461,8 +461,7 @@ int main(int argc, char *argv[])
     tw_init(&argc, &argv);
 
     if (!conf_file_name[0]) {
-        tw_error(TW_LOC,
-                "Expected \"codes-config\" option, please see --help.\n");
+        tw_error(TW_LOC,"Expected \"codes-config\" option, please see --help.\n");
         return 1;
     }
 
