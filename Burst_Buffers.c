@@ -515,25 +515,25 @@ int main(int argc, char *argv[])
         if (num_nets == 1) {
             net_id_client = net_ids[0];
             net_id_svr = net_ids[0];
-            net_id_bb = net_ids[0]
+            net_id_bb = net_ids[0];
             net_id_forwarding = net_ids[0];
         }
         else if (num_nets == 2) {
             net_id_client = net_ids[0];
             net_id_svr = net_ids[0];
-            net_id_bb = net_ids[0]
+            net_id_bb = net_ids[0];
             net_id_forwarding = net_ids[1];
         }
         else if (num_nets == 3){
             net_id_client = net_ids[0];
             net_id_svr = net_ids[1];
-            net_id_bb = net_ids[1]
+            net_id_bb = net_ids[1];
             net_id_forwarding = net_ids[2];
         }
         else{
         	net_id_client = net_ids[0];
         	net_id_svr = net_ids[1];
-        	net_id_bb = net_ids[2]
+        	net_id_bb = net_ids[2];
         	net_id_forwarding = net_ids[3];
         }
     free(net_ids);
