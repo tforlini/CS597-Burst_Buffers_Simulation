@@ -105,7 +105,7 @@ void node_lp_init(node_state * ns, tw_lp * lp){
     // track which cluster we're in
     ns->is_in_client = (id_all < num_client_nodes);
     ns->is_in_server = (id_all < (num_svr_nodes + num_client_nodes) && (id_all >= num_client_nodes));
-    printf("num_burst_buffers=%d\n",num_burst_buffer_nodes);
+
     //printf("is_in_client=%d\nis_in_svr=%d\n",ns->is_in_client,ns->is_in_server);
     //printf("id_all= %d\nnum_client_nodes= %d\n",id_all,num_client_nodes);
     // send a self kickoff event
@@ -196,7 +196,7 @@ void handle_node_recv_req(node_state * ns,node_msg * m,tw_lp * lp){
     // as the relative forwarder IDs are with respect to groups, the group
     // name must be used
     tw_lpid dest_fwd_lpid = codes_mapping_get_lpid_from_relative(dest_fwd_id,"bb_FORWARDERS", "forwarder", NULL, 0);
-    model_net_event_annotated(net_id_svr, "svr","ack", dest_fwd_lpid, pvfs_file_sz, 0.0,sizeof(m_fwd), &m_fwd, 0, NULL, lp);
+    model_net_event_annotated(net_id_svr, "bb","ack", dest_fwd_lpid, pvfs_file_sz, 0.0,sizeof(m_fwd), &m_fwd, 0, NULL, lp);
 
     }
     else{											//is in server		*/
@@ -209,17 +209,19 @@ void handle_node_recv_req(node_state * ns,node_msg * m,tw_lp * lp){
     forwarder_msg m_fwd;
     msg_set_header(forwarder_magic, FORWARDER_FWD, lp->gid, &m_fwd.h);
     m_fwd.src_node_clust_id = ns->id_clust;
+    //m_fwd.dest_node_clust_id = m->id_clust % num_burst_buffer_nodes;
     m_fwd.dest_node_clust_id = m->id_clust_src;
     //m_fwd.node_event_type = NODE_RECV_req;			//TO CHANGE WITH BB
     m_fwd.node_event_type = NODE_RECV_ack;
     // compute the dest forwarder index, again using a simple modulus
+    //int dest_fwd_id = ns->id_clust % num_burst_buffer_forwarders;
     int dest_fwd_id = ns->id_clust % num_svr_forwarders;
 
     // as the relative forwarder IDs are with respect to groups, the group
     // name must be used
     tw_lpid dest_fwd_lpid = codes_mapping_get_lpid_from_relative(dest_fwd_id,"svr_FORWARDERS", "forwarder", NULL, 0);
     ns->pvfs_ts_remote_write += pvfs_tp_write_local_mu;
-    model_net_event_annotated(net_id_svr, "svr","ack", dest_fwd_lpid, pvfs_file_sz, 0.0,sizeof(m_fwd), &m_fwd, 0, NULL, lp);
+    model_net_event_annotated(net_id_svr, "svr","req", dest_fwd_lpid, pvfs_file_sz, 0.0,sizeof(m_fwd), &m_fwd, 0, NULL, lp);
    // }
 
     ns->num_processed++;
