@@ -339,21 +339,21 @@ void handle_forwarder_fwd(forwarder_state * ns,forwarder_msg * m,tw_lp * lp){
     }
     else if (ns->is_in_server){
     	if(m->node_event_type == NODE_RECV_ack){
-    		printf("Test forwarder ACK\n");
+    		//printf("Test forwarder ACK\n");
     		mod = num_client_forwarders;
     		dest_group = "client_FORWARDERS";
     		category = "ack";
     	}
     	else if(m->node_event_type == NODE_RECV_req){
-    		printf("Test forwarder REQ\n");
-    		mod = num_client_forwarders;
-    		dest_group = "client_FORWARDERS";
+    		//printf("Test forwarder REQ\n");
+    		mod = num_burst_buffer_forwarders;
+    		dest_group = "bb_FORWARDERS";
     		category = "req";
     	}
     	}
     else{
-    	mod = num_burst_buffer_forwarders;
-    	dest_group = "bb_FORWARDERS";
+    	mod = num_svr_forwarders;
+    	dest_group = "svr_FORWARDERS";
     	category = "ack";
     }
 
@@ -384,11 +384,25 @@ void handle_forwarder_recv(forwarder_state * ns,forwarder_msg * m,tw_lp * lp) {
         category = "ack";
         net_id=net_id_client;
     }
-    else /*if(ns->is_in_server)*/{
-        dest_group = "svr_CLUSTER";
-        annotation = "svr";
-        category = "req";
-        net_id=net_id_svr;
+    else if(ns->is_in_server){
+    	if(m->node_event_type == NODE_RECV_req){
+    		dest_group = "svr_CLUSTER";
+    		annotation = "svr";
+    		category = "req";
+    		net_id=net_id_svr;
+    	}
+    	else if(m->node_event_type == NODE_RECV_ack){
+    		dest_group = "svr_CLUSTER";
+    		annotation = "svr";
+    		category = "ack";
+    		net_id=net_id_svr;
+    	}
+    }
+    else{
+    	dest_group = "bb_CLUSTER";
+    	annotation = "bb";
+    	category = "req";
+    	net_id=net_id_bb;
     }
 
     tw_lpid dest_lpid = codes_mapping_get_lpid_from_relative(m->dest_node_clust_id, dest_group, "node",NULL, 0);
