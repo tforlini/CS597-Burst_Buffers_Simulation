@@ -318,6 +318,7 @@ void forwarder_lp_init(forwarder_state * ns,tw_lp * lp){
     ns->id = codes_mapping_get_lp_relative_id(lp->gid, 1, 0);
     int id_all = codes_mapping_get_lp_relative_id(lp->gid, 0, 0);
     ns->is_in_client = (id_all < num_client_forwarders);
+    ns->is_in_server = (id_all < (num_svr_forwarders + num_client_forwarders) && (id_all >= num_client_forwarders));
 }
 
 void forwarder_finalize(forwarder_state * ns,tw_lp * lp){
@@ -336,10 +337,22 @@ void handle_forwarder_fwd(forwarder_state * ns,forwarder_msg * m,tw_lp * lp){
         dest_group = "svr_FORWARDERS";
         category = "req";
     }
+    else if (ns->is_in_server){
+    	if(m->node_event_type == NODE_RECV_ack){
+    		mod = num_client_forwarders;
+    		dest_group = "client_FORWARDERS";
+    		category = "ack";
+    	}
+    	else if(m->node_event_type == NODE_RECV_req){
+    		mod = num_client_forwarders;
+    		dest_group = "client_FORWARDERS";
+    		category = "req";
+    	}
+    	}
     else{
-        mod = num_client_forwarders;
-        dest_group = "client_FORWARDERS";
-        category = "ack";
+    	mod = num_burst_buffer_forwarders;
+    	dest_group = "bb_FORWARDERS";
+    	category = "ack";
     }
 
     // compute the ROSS id corresponding to the dest forwarder
