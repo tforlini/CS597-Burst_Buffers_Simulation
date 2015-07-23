@@ -173,12 +173,12 @@ void handle_node_next(node_state * ns,node_msg * m,tw_lp * lp){
 }
 
 void handle_node_recv_req(node_state * ns,node_msg * m,tw_lp * lp){
-    printf("In handle_recv_req\n");
+    //printf("In handle_recv_req\n");
     // we must be in cluster svr to receive reqs
     assert(!ns->is_in_client);
 
     if(!ns->is_in_server && !ns->is_in_client){	//is in Burst_buffer
-
+    printf("In handle_recv_req Busrt Buffer\n");
     // check that we received the msg from the expected source
     assert(m->id_clust_src % num_burst_buffer_nodes == ns->id_clust);
 
@@ -200,7 +200,7 @@ void handle_node_recv_req(node_state * ns,node_msg * m,tw_lp * lp){
 
     }
     else{											//is in server
-
+    printf("In handle_recv_req Server\n");
     // check that we received the msg from the expected source
    // printf("In handle_node_recv_req num_svr_nodes is %d\n",num_svr_nodes);
     assert(m->id_clust_src % num_svr_nodes == ns->id_clust);
@@ -230,18 +230,19 @@ void handle_node_recv_req(node_state * ns,node_msg * m,tw_lp * lp){
 }
 
 void handle_node_recv_ack(node_state * ns,node_msg * m,tw_lp * lp){
-    printf("In handle_recv_ack\n");
+    //printf("In handle_recv_ack\n");
     // we must be in cluster client
     //assert(ns->id_clust < num_client_nodes);
     if(ns->id_clust < num_client_nodes){  // in client cluster
-    // simply process the next message
+    	printf("In handle_recv_ack client\n");
+    	// simply process the next message
     	ns->num_processed++;
     	if (ns->num_processed < num_reqs){
     		handle_node_next(ns, m, lp);
     	}
     }
     else{								  // in svr cluster
-
+    	printf("In handle_recv_ack server\n");
     	// setup the response message through the forwarder
     	forwarder_msg m_fwd;
     	msg_set_header(forwarder_magic, FORWARDER_FWD, lp->gid, &m_fwd.h);
