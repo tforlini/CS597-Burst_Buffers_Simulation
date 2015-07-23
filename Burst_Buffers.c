@@ -187,7 +187,7 @@ void handle_node_recv_req(node_state * ns,node_msg * m,tw_lp * lp){
     msg_set_header(forwarder_magic, FORWARDER_FWD, lp->gid, &m_fwd.h);
 
     m_fwd.src_node_clust_id = ns->id_clust;
-    m_fwd.dest_node_clust_id = ns->id_clust % num_svr_nodes;
+    m_fwd.dest_node_clust_id = (m->id_clust_src % num_burst_buffer_nodes) % num_svr_nodes;
     m_fwd.node_event_type = NODE_RECV_ack;
 
     // compute the dest forwarder index, again using a simple modulus
@@ -209,7 +209,7 @@ void handle_node_recv_req(node_state * ns,node_msg * m,tw_lp * lp){
     forwarder_msg m_fwd;
     msg_set_header(forwarder_magic, FORWARDER_FWD, lp->gid, &m_fwd.h);
     m_fwd.src_node_clust_id = ns->id_clust;
-    m_fwd.dest_node_clust_id = ns->id_clust % num_burst_buffer_nodes;
+    m_fwd.dest_node_clust_id = (m->id_clust_src % num_svr_nodes) % num_burst_buffer_nodes;
     //m_fwd.dest_node_clust_id = m->id_clust_src;
     m_fwd.node_event_type = NODE_RECV_req;			//TO CHANGE WITH BB
     //m_fwd.node_event_type = NODE_RECV_ack;
