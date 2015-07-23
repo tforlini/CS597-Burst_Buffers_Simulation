@@ -396,7 +396,6 @@ void handle_forwarder_recv(forwarder_state * ns,forwarder_msg * m,tw_lp * lp) {
     		net_id=net_id_svr;
     	}
     	else if(m->node_event_type == NODE_RECV_ack){
-    		printf("Test LOLOLOLO");
     		dest_group = "svr_CLUSTER";
     		annotation = "svr";
     		category = "ack";
