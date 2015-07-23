@@ -233,7 +233,7 @@ void handle_node_recv_ack(node_state * ns,node_msg * m,tw_lp * lp){
     //printf("In handle_recv_ack\n");
     // we must be in cluster client
     //assert(ns->id_clust < num_client_nodes);
-    if(ns->id_clust < num_client_nodes){  // in client cluster
+    if(ns->is_in_client){  // in client cluster
     	printf("In handle_recv_ack client\n");
     	// simply process the next message
     	ns->num_processed++;
@@ -241,7 +241,7 @@ void handle_node_recv_ack(node_state * ns,node_msg * m,tw_lp * lp){
     		handle_node_next(ns, m, lp);
     	}
     }
-    else{								  // in svr cluster
+    else if(ns->is_in_server){								  // in svr cluster
     	printf("In handle_recv_ack server\n");
     	// setup the response message through the forwarder
     	forwarder_msg m_fwd;
@@ -381,6 +381,7 @@ void handle_forwarder_recv(forwarder_state * ns,forwarder_msg * m,tw_lp * lp) {
     const char * annotation;
     char * category;
     int net_id;
+
     if (ns->is_in_client){
         dest_group = "client_CLUSTER";
         annotation = "client";
