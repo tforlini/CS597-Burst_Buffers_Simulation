@@ -40,9 +40,9 @@ static char *pvfs_file_sz_key = "pvfs_file_sz";
 
 /*The local disk bandwidth of Burst Buffers*/
 static float burst_buffer_local_mu;
-static char *param_group_burst_buffer = "io_forwarding";
+static int bb_file_sz=0;
 static char *size = "payload_sz";
-static char *file_size = "burst_buffer_file_sz";
+static char *bb_file_size_key = "bb_file_sz";
 
 /* event types */
 enum node_event
@@ -59,6 +59,7 @@ typedef struct node_state_s {
     int num_processed;   // number of requests processed
     tw_stime start_ts;    /* time that we started sending requests */
     tw_stime pvfs_ts_remote_write;      /*pvfsFS timestamp for local write*/
+    tw_stime bb_ts_remote_write; // bb timestamp for local write
 } node_state;
 
 
@@ -131,11 +132,13 @@ void node_finalize(node_state * ns,tw_lp * lp){
         fprintf(stderr,"%s node %d, lp %lu: processed %d (expected %d)\n",ns->is_in_client ? "client" : "svr", ns->id_clust, lp->gid,ns->num_processed, num_reqs*mult);
     }
 
-float io_noise = 0.05 * tw_rand_integer(lp->rng,ns->pvfs_ts_remote_write,ns->pvfs_ts_remote_write);
-        long rand_idx = 0;
-        //printf("num_svr_nodes is %d\n",num_svr_nodes);
-        int dest_id = (lp->gid + rand_idx * 2) % (num_svr_nodes * 2);
-        printf("Server %llu time = %f seconds.\n", (unsigned long long)(dest_id/2), ns_to_s(tw_now(lp)-ns->start_ts)+io_noise);
+    float io_noise = 0.05 * tw_rand_integer(lp->rng,ns->pvfs_ts_remote_write,ns->pvfs_ts_remote_write);
+    float io_moise_bb = 0.05* tw_rand_integer(lp->rng,ns->bb_ts_remote_write,ns->bb_ts_remote_write);
+
+    long rand_idx = 0;
+    //printf("num_svr_nodes is %d\n",num_svr_nodes);
+    int dest_id = (lp->gid + rand_idx * 2) % (num_svr_nodes * 2);
+    printf("Server %llu time = %f seconds.\n", (unsigned long long)(dest_id/2), ns_to_s(tw_now(lp)-ns->start_ts)+io_noise);
 
             return;
 }
@@ -577,6 +580,7 @@ int main(int argc, char *argv[])
         configuration_get_value_int(&config, param_group_nm, num_reqs_key, NULL,&num_reqs);
         configuration_get_value_int(&config, param_group_nm, payload_sz_key,NULL, (int *)&payload_sz);
         configuration_get_value_int(&config, param_group_nm, pvfs_file_sz_key, NULL,&pvfs_file_sz); /*Sughosh: added for pvfsfs*/
+        configuration_get_value_int(&config, param_group_nm, bb_file_sz_key, NULL,&bb_file_sz); /*Tony: added for bb*/
     /* begin simulation */
         model_net_report_stats(net_id);
         tw_run();
