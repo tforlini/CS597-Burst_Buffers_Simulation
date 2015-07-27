@@ -40,7 +40,7 @@ static char *pvfs_file_sz_key = "pvfs_file_sz";
 
 /*Burst Buffer Capacity*/
 static int burst_buffer_max_capacity;
-static long burst_buffer_capacity = burst_buffer_max_capacity*1000000000;
+static long burst_buffer_capacity;
 static int burst_buffer_cur_capacity;
 static char *bb_capacity_key = "bb_capacity";
 
@@ -101,6 +101,8 @@ static tw_stime ns_to_s(tw_stime ns);
 /**** BEGIN IMPLEMENTATIONS ****/
 
 void node_lp_init(node_state * ns, tw_lp * lp){
+
+	burst_buffer_capacity = burst_buffer_max_capacity*1000000000;
     printf("In node_lp_init\n");
     ns->num_processed = 0;
     // nodes are addressed in their logical id space (0...num_client_nodes-1 and
