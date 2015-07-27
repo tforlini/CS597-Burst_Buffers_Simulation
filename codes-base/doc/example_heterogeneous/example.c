@@ -101,14 +101,10 @@ void node_finalize(
         mult = 1; 
     }
     else{
-        mult = (num_foo_nodes / num_bar_nodes) +
-            ((num_foo_nodes % num_bar_nodes) > ns->id_clust);
+        mult = (num_foo_nodes / num_bar_nodes) +((num_foo_nodes % num_bar_nodes) > ns->id_clust);
     }
     if (ns->num_processed != num_pings*mult){
-        fprintf(stderr,
-                "%s node %d, lp %lu: processed %d (expected %d)\n",
-                ns->is_in_foo ? "foo" : "bar", ns->id_clust, lp->gid,
-                ns->num_processed, num_pings*mult);
+        fprintf(stderr,"%s node %d, lp %lu: processed %d (expected %d)\n",ns->is_in_foo ? "foo" : "bar", ns->id_clust, lp->gid,ns->num_processed, num_pings*mult);
     }
 }
 

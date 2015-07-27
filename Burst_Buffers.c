@@ -41,7 +41,6 @@ static char *pvfs_file_sz_key = "pvfs_file_sz";
 /*Burst Buffer Capacity*/
 static int burst_buffer_max_capacity;
 static long burst_buffer_capacity;
-static int burst_buffer_cur_capacity;
 static char *bb_capacity_key = "bb_capacity";
 
 /*The local disk bandwidth of Burst Buffers*/
@@ -63,6 +62,7 @@ typedef struct node_state_s {
     int is_in_server;	 // whether we're in svr's cluster
     int id_clust;        // my index within the cluster
     int num_processed;   // number of requests processed
+    long bb_cur_capacity; // burst buffer current free capacity
     tw_stime start_ts;    /* time that we started sending requests */
     tw_stime pvfs_ts_remote_write;      /*pvfsFS timestamp for local write*/
     tw_stime bb_ts_remote_write; // bb timestamp for local write
@@ -103,7 +103,7 @@ static tw_stime ns_to_s(tw_stime ns);
 void node_lp_init(node_state * ns, tw_lp * lp){
 
 	burst_buffer_capacity = ((long) (burst_buffer_max_capacity))*1000000000;
-	printf("Burst Buffer Capacity:%li\n",burst_buffer_capacity);
+	//printf("Burst Buffer Capacity:%li\n",burst_buffer_capacity);
 
 	printf("In node_lp_init\n");
     ns->num_processed = 0;
@@ -143,6 +143,7 @@ void node_finalize(node_state * ns,tw_lp * lp){
     }
 
     float io_noise = 0.05 * tw_rand_integer(lp->rng,ns->pvfs_ts_remote_write,ns->pvfs_ts_remote_write);
+    printf("--------	IO Noise : %f	------\n",io_noise);
     float io_moise_bb = 0.05* tw_rand_integer(lp->rng,ns->bb_ts_remote_write,ns->bb_ts_remote_write);
 
     long rand_idx = 0;
