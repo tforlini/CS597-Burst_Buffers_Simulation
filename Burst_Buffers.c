@@ -144,6 +144,7 @@ void node_finalize(node_state * ns,tw_lp * lp){
 
     //float io_noise = 0.05 * tw_rand_integer(lp->rng,ns->pvfs_ts_remote_write,ns->pvfs_ts_remote_write);
     float io_noise = ns->pvfs_ts_remote_write * 0.05 * tw_rand_integer(lp->rng,0,1);
+    printf("--------	Remote write latecy : %f	-------",(float) ns->pvfs_ts_remote_write );
     printf("--------	IO Noise : %f	------\n",io_noise);
     float io_noise_bb = 0.05* tw_rand_integer(lp->rng,ns->bb_ts_remote_write,ns->bb_ts_remote_write);
 
