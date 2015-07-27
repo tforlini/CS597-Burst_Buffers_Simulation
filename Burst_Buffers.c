@@ -40,6 +40,7 @@ static char *pvfs_file_sz_key = "pvfs_file_sz";
 
 /*Burst Buffer Capacity*/
 static int burst_buffer_max_capacity;
+static long burst_buffer_capacity = burst_buffer_max_capacity*1000000000;
 static int burst_buffer_cur_capacity;
 static char *bb_capacity_key = "bb_capacity";
 
@@ -587,8 +588,10 @@ int main(int argc, char *argv[])
         configuration_get_value_int(&config, param_group_nm, pvfs_file_sz_key, NULL,&pvfs_file_sz); /*Sughosh: added for pvfsfs*/
         configuration_get_value_int(&config, param_group_nm, bb_file_size_key, NULL,&bb_file_sz); /*Tony: added for bb*/
         configuration_get_value_int(&config, param_group_nm, bb_capacity_key, NULL,&burst_buffer_max_capacity); /*Tony: added for bb*/
-        printf("Burst Buffer Capacity:%d",burst_buffer_max_capacity);
-    /* begin simulation */
+
+        printf("Burst Buffer Capacity:%d",burst_buffer_capacity);
+
+        /* begin simulation */
         model_net_report_stats(net_id);
         tw_run();
 
