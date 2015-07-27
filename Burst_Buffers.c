@@ -39,8 +39,8 @@ static char *payload_sz_key = "payload_sz";
 static char *pvfs_file_sz_key = "pvfs_file_sz";
 
 /*Burst Buffer Capacity*/
-static long burst_buffer_max_capacity;
-static long burst_buffer_cur_capacity;
+static int burst_buffer_max_capacity;
+static int burst_buffer_cur_capacity;
 static char *bb_capacity_key = "bb_capacity";
 
 /*The local disk bandwidth of Burst Buffers*/
