@@ -38,6 +38,11 @@ static char *num_reqs_key = "num_reqs";
 static char *payload_sz_key = "payload_sz";
 static char *pvfs_file_sz_key = "pvfs_file_sz";
 
+/*Burst Buffer Capacity*/
+static long burst_buffer_max_capacity;
+static long burst_buffer_cur_capacity;
+static char *bb_capacity_key = "bb_capacity";
+
 /*The local disk bandwidth of Burst Buffers*/
 static float burst_buffer_local_mu;
 static int bb_file_sz=0;
@@ -581,6 +586,7 @@ int main(int argc, char *argv[])
         configuration_get_value_int(&config, param_group_nm, payload_sz_key,NULL, (int *)&payload_sz);
         configuration_get_value_int(&config, param_group_nm, pvfs_file_sz_key, NULL,&pvfs_file_sz); /*Sughosh: added for pvfsfs*/
         configuration_get_value_int(&config, param_group_nm, bb_file_size_key, NULL,&bb_file_sz); /*Tony: added for bb*/
+        configuration_get_value_int(&config, param_group_nm, bb_capacity_key, NULL,&burst_buffer_max_capacity); /*Tony: added for bb*/
     /* begin simulation */
         model_net_report_stats(net_id);
         tw_run();
