@@ -580,7 +580,7 @@ int main(int argc, char *argv[])
         configuration_get_value_int(&config, param_group_nm, num_reqs_key, NULL,&num_reqs);
         configuration_get_value_int(&config, param_group_nm, payload_sz_key,NULL, (int *)&payload_sz);
         configuration_get_value_int(&config, param_group_nm, pvfs_file_sz_key, NULL,&pvfs_file_sz); /*Sughosh: added for pvfsfs*/
-        configuration_get_value_int(&config, param_group_nm, bb_file_sz_key, NULL,&bb_file_sz); /*Tony: added for bb*/
+        configuration_get_value_int(&config, param_group_nm, bb_file_size_key, NULL,&bb_file_sz); /*Tony: added for bb*/
     /* begin simulation */
         model_net_report_stats(net_id);
         tw_run();
