@@ -142,9 +142,10 @@ void node_finalize(node_state * ns,tw_lp * lp){
         fprintf(stderr,"%s node %d, lp %lu: processed %d (expected %d)\n",ns->is_in_client ? "client" : "svr", ns->id_clust, lp->gid,ns->num_processed, num_reqs*mult);
     }
 
-    float io_noise = 0.05 * tw_rand_integer(lp->rng,ns->pvfs_ts_remote_write,ns->pvfs_ts_remote_write);
+    //float io_noise = 0.05 * tw_rand_integer(lp->rng,ns->pvfs_ts_remote_write,ns->pvfs_ts_remote_write);
+    float io_noise = ns->pvfs_ts_remote_write * tw_rand_integer(lp->rng,0,0.05);
     printf("--------	IO Noise : %f	------\n",io_noise);
-    float io_moise_bb = 0.05* tw_rand_integer(lp->rng,ns->bb_ts_remote_write,ns->bb_ts_remote_write);
+    float io_noise_bb = 0.05* tw_rand_integer(lp->rng,ns->bb_ts_remote_write,ns->bb_ts_remote_write);
 
     long rand_idx = 0;
     //printf("num_svr_nodes is %d\n",num_svr_nodes);
