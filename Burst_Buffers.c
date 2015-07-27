@@ -589,7 +589,7 @@ int main(int argc, char *argv[])
         configuration_get_value_int(&config, param_group_nm, bb_file_size_key, NULL,&bb_file_sz); /*Tony: added for bb*/
         configuration_get_value_int(&config, param_group_nm, bb_capacity_key, NULL,&burst_buffer_max_capacity); /*Tony: added for bb*/
 
-        printf("Burst Buffer Capacity:%d",burst_buffer_capacity);
+        printf("Burst Buffer Capacity:%li",burst_buffer_capacity);
 
         /* begin simulation */
         model_net_report_stats(net_id);
