@@ -103,7 +103,7 @@ static tw_stime ns_to_s(tw_stime ns);
 void node_lp_init(node_state * ns, tw_lp * lp){
 
 	burst_buffer_capacity = ((long) (burst_buffer_max_capacity))*1000000000;
-	printf("Burst Buffer Capacity:%li",burst_buffer_capacity);
+	printf("Burst Buffer Capacity:%li\n",burst_buffer_capacity);
 
 	printf("In node_lp_init\n");
     ns->num_processed = 0;
