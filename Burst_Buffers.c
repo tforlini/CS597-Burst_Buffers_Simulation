@@ -103,7 +103,9 @@ static tw_stime ns_to_s(tw_stime ns);
 void node_lp_init(node_state * ns, tw_lp * lp){
 
 	burst_buffer_capacity = ((long) (burst_buffer_max_capacity))*1000000000;
-    printf("In node_lp_init\n");
+	printf("Burst Buffer Capacity:%li",burst_buffer_capacity);
+
+	printf("In node_lp_init\n");
     ns->num_processed = 0;
     // nodes are addressed in their logical id space (0...num_client_nodes-1 and
     // 0...num_svr_nodes-1, respectively). LPs are computed upon use with
@@ -591,7 +593,6 @@ int main(int argc, char *argv[])
         configuration_get_value_int(&config, param_group_nm, bb_file_size_key, NULL,&bb_file_sz); /*Tony: added for bb*/
         configuration_get_value_int(&config, param_group_nm, bb_capacity_key, NULL,&burst_buffer_max_capacity); /*Tony: added for bb*/
 
-        printf("Burst Buffer Capacity:%li",burst_buffer_capacity);
 
         /* begin simulation */
         model_net_report_stats(net_id);
