@@ -102,7 +102,7 @@ static tw_stime ns_to_s(tw_stime ns);
 
 void node_lp_init(node_state * ns, tw_lp * lp){
 
-	burst_buffer_capacity = burst_buffer_max_capacity*1000000000;
+	burst_buffer_capacity = (long) burst_buffer_max_capacity*1000000000;
     printf("In node_lp_init\n");
     ns->num_processed = 0;
     // nodes are addressed in their logical id space (0...num_client_nodes-1 and
