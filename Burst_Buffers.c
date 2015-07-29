@@ -556,7 +556,8 @@ int main(int argc, char *argv[])
         tw_error(TW_LOC, "Error loading config file %s.\n", conf_file_name);
         return 1;
     }
-
+    lsm_register();
+    lsm_configure();
     /* register model-net LPs with ROSS */
     model_net_register();
 
