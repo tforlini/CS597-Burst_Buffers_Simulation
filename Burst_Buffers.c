@@ -227,12 +227,12 @@ void handle_node_recv_req(node_state * ns,node_msg * m,tw_lp * lp){
     model_net_event_annotated(net_id_svr, "bb","ack", dest_fwd_lpid, pvfs_file_sz, 0.0,sizeof(m_fwd), &m_fwd, 0, NULL, lp);
 
     // send local write event
-    node_msg * m_new;
+    forwarder_msg * m_new;
     tw_event *e_new;
-    e_new = lsm_event_new("test", lp->gid, 0, 0, pvfs_file_sz, LSM_WRITE_REQUEST, sizeof(node_msg), lp, 1.0);
+    e_new = lsm_event_new("test", lp->gid, 0, 0, pvfs_file_sz, LSM_WRITE_REQUEST, sizeof(forwarder_msg), lp, 1.0);
     m_new = lsm_event_data(e_new);
     m_new->event_type = NODE_RECV_ack;
-    m_new->src = lp->gid;
+    m_new->src_node_clust_id = lp->gid;
     tw_event_send(e_new);
 
     }
