@@ -304,7 +304,7 @@ void handle_node_local_event(node_state * ns,node_msg * m, tw_lp * lp)
 }
 
 void node_event_handler(node_state * ns,tw_bf * b,node_msg * m,tw_lp * lp){
-    printf("In node_event_handler\n");
+    //printf("In node_event_handler\n");
     assert(m->h.magic == node_magic);
 
     switch (m->h.event_type){
