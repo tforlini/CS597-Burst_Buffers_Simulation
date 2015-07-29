@@ -231,7 +231,7 @@ void handle_node_recv_req(node_state * ns,node_msg * m,tw_lp * lp){
     tw_event *e_new;
 
     printf("DEBUG 1\n");
-    e_new = lsm_event_new("test", lp->gid, 0, 0, pvfs_file_sz, LSM_WRITE_REQUEST, sizeof(forwarder_msg), lp, 1);
+    e_new = lsm_event_new("test", lp->gid, 0, 0, pvfs_file_sz, LSM_WRITE_REQUEST, sizeof(forwarder_msg), lp, 0.0);
     printf("DEBUG 2\n");
     m_new = lsm_event_data(e_new);
     m_new->node_event_type = NODE_RECV_ack;
