@@ -351,7 +351,7 @@ void node_register(){
 /*** Forwarder LP ***/
 
 void forwarder_lp_init(forwarder_state * ns,tw_lp * lp){
-    printf("I node_forwarder_lp_init\n");
+    //printf("I node_forwarder_lp_init\n");
     // like nodes, forwarders in this example are addressed logically
     ns->id = codes_mapping_get_lp_relative_id(lp->gid, 1, 0);
     int id_all = codes_mapping_get_lp_relative_id(lp->gid, 0, 0);
@@ -360,12 +360,12 @@ void forwarder_lp_init(forwarder_state * ns,tw_lp * lp){
 }
 
 void forwarder_finalize(forwarder_state * ns,tw_lp * lp){
-    printf("In forwarder_finalize\n");
+   // printf("In forwarder_finalize\n");
     // nothing to see here
 }
 
 void handle_forwarder_fwd(forwarder_state * ns,forwarder_msg * m,tw_lp * lp){
-    printf("In handle_forwarder_fwd\n");
+   // printf("In handle_forwarder_fwd\n");
     // compute the forwarder lpid to forward to
     int mod;
     const char * dest_group;
@@ -410,7 +410,7 @@ void handle_forwarder_fwd(forwarder_state * ns,forwarder_msg * m,tw_lp * lp){
 }
 
 void handle_forwarder_recv(forwarder_state * ns,forwarder_msg * m,tw_lp * lp) {
-    printf("In handle_forwarder_recv\n");
+    //printf("In handle_forwarder_recv\n");
     // compute the node to relay the message to
     const char * dest_group;
     const char * annotation;
@@ -458,7 +458,7 @@ void handle_forwarder_recv(forwarder_state * ns,forwarder_msg * m,tw_lp * lp) {
 }
 
 void forwarder_event_handler(forwarder_state * ns,tw_bf * b,forwarder_msg * m,tw_lp * lp){
-    printf("In forwarder_event_handler\n");
+    //printf("In forwarder_event_handler\n");
     assert(m->h.magic == forwarder_magic);
 
     switch(m->h.event_type){
@@ -484,7 +484,7 @@ static tw_lptype forwarder_lp = {
 };
 
 void forwarder_register(){
-    printf("In forwarder_register\n");
+   // printf("In forwarder_register\n");
     uint32_t h1=0, h2=0;
 
     bj_hashlittle2("forwarder", strlen("forwarder"), &h1, &h2);
