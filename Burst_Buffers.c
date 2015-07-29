@@ -298,7 +298,7 @@ void handle_node_local_event(node_state * ns,node_msg * m, tw_lp * lp)
         printf("handle_local_event(), lp %llu.\n",(unsigned long long)lp->gid);
 
     /* safety check that this request got to the right server */
-    assert(lp->gid == m->src);
+    assert(lp->gid == m->id_clust_src);
     ns->num_processed++;
     return;
 }
