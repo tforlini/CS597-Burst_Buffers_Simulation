@@ -162,7 +162,7 @@ void node_finalize(node_state * ns,tw_lp * lp){
     long rand_idx = 0;
     //printf("num_svr_nodes is %d\n",num_svr_nodes);
     int dest_id = (lp->gid + rand_idx * 2) % (num_svr_nodes * 2);
-    printf("Server %llu time = %f seconds.\n", (unsigned long long)(dest_id/2), ns_to_s(tw_now(lp)-ns->start_ts)+io_noise);
+    printf("Server %llu time = %f seconds.\n", (unsigned long long)lp->gid, ns_to_s(tw_now(lp)-ns->start_ts)+io_noise);
 
             return;
 }
