@@ -9,6 +9,7 @@
 #include "codes-base/codes/jenkins-hash.h"
 #include "codes-base/codes/codes.h"
 #include "codes-base/codes/lp-msg.h"
+#include "codes-base/codes/lp-io.h"
 #include "codes-net/codes/model-net.h"
 #include <assert.h>
 
@@ -55,6 +56,7 @@ enum node_event
     NODE_KICKOFF = 123,
     NODE_RECV_req,
     NODE_RECV_ack,
+    NODE_LOCAL
 };
 
 typedef struct node_state_s {
@@ -67,6 +69,13 @@ typedef struct node_state_s {
     tw_stime pvfs_ts_remote_write;      /*pvfsFS timestamp for local write*/
     tw_stime bb_ts_remote_write; // bb timestamp for local write
 } node_state;
+
+
+typedef struct file_s {
+	int id;
+	int size;
+	int offset;
+} file;
 
 
 typedef struct node_msg_s {
@@ -281,9 +290,17 @@ void handle_node_recv_ack(node_state * ns,node_msg * m,tw_lp * lp){
     }
 }
 
-void handle_node_burst_buffer(node_state * ns,node_msg * m, tw_lp * lp){
 
-	ns->num_processed++;
+
+void handle_node_local_event(node_state * ns,node_msg * m, tw_lp * lp)
+{
+
+        printf("handle_local_event(), lp %llu.\n",(unsigned long long)lp->gid);
+
+    /* safety check that this request got to the right server */
+    assert(lp->gid == m->src);
+    ns->num_processed++;
+    return;
 }
 
 void node_event_handler(node_state * ns,tw_bf * b,node_msg * m,tw_lp * lp){

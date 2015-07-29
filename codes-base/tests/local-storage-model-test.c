@@ -57,24 +57,11 @@ const tw_optdef app_opt[] = {
 };
 
 
-static void svr_init(
-    svr_state * ns,
-    tw_lp * lp);
-static void svr_event(
-    svr_state * ns,
-    tw_bf * b,
-    svr_msg * m,
-    tw_lp * lp);
-static void svr_rev_event(
-    svr_state * ns,
-    tw_bf * b,
-    svr_msg * m,
-    tw_lp * lp);
-static void svr_finalize(
-    svr_state * ns,
-    tw_lp * lp);
-static tw_peid svr_node_mapping(
-    tw_lpid gid);
+static void svr_init(svr_state * ns,tw_lp * lp);
+static void svr_event(svr_state * ns,tw_bf * b,svr_msg * m,tw_lp * lp);
+static void svr_rev_event(svr_state * ns,tw_bf * b,svr_msg * m,tw_lp * lp);
+static void svr_finalize(svr_state * ns,tw_lp * lp);
+static tw_peid svr_node_mapping(tw_lpid gid);
 
 tw_lptype svr_lp = {
     (init_f) svr_init,
@@ -88,45 +75,15 @@ tw_lptype svr_lp = {
 
 static tw_stime ns_to_s(tw_stime ns);
 static tw_stime s_to_ns(tw_stime ns);
-static void handle_kickoff_event(
-    svr_state * ns,
-    tw_bf * b,
-    svr_msg * m,
-    tw_lp * lp);
-static void handle_ack_event(
-    svr_state * ns,
-    tw_bf * b,
-    svr_msg * m,
-    tw_lp * lp);
-static void handle_req_event(
-    svr_state * ns,
-    tw_bf * b,
-    svr_msg * m,
-    tw_lp * lp);
-static void handle_kickoff_rev_event(
-    svr_state * ns,
-    tw_bf * b,
-    svr_msg * m,
-    tw_lp * lp);
-static void handle_ack_rev_event(
-    svr_state * ns,
-    tw_bf * b,
-    svr_msg * m,
-    tw_lp * lp);
-static void handle_req_rev_event(
-    svr_state * ns,
-    tw_bf * b,
-    svr_msg * m,
-    tw_lp * lp);
-static void handle_local_event(
-    svr_state * ns,
-    tw_bf * b,
-    svr_msg * m,
-    tw_lp * lp);
+static void handle_kickoff_event(svr_state * ns,tw_bf * b,svr_msg * m,tw_lp * lp);
+static void handle_ack_event(svr_state * ns,tw_bf * b,svr_msg * m,tw_lp * lp);
+static void handle_req_event(svr_state * ns,tw_bf * b,svr_msg * m,tw_lp * lp);
+static void handle_kickoff_rev_event(svr_state * ns,tw_bf * b,svr_msg * m,tw_lp * lp);
+static void handle_ack_rev_event(svr_state * ns,tw_bf * b,svr_msg * m,tw_lp * lp);
+static void handle_req_rev_event(svr_state * ns,tw_bf * b,svr_msg * m,tw_lp * lp);
+static void handle_local_event(svr_state * ns,tw_bf * b,svr_msg * m,tw_lp * lp);
 
-int main(
-    int argc,
-    char **argv)
+int main(int argc,char **argv)
 {
     int nprocs;
     int rank;
@@ -172,9 +129,7 @@ int main(
     return 0;
 }
 
-static void svr_init(
-    svr_state * ns,
-    tw_lp * lp)
+static void svr_init(svr_state * ns,tw_lp * lp)
 {
     tw_event *e;
     svr_msg *m;
@@ -197,11 +152,7 @@ static void svr_init(
     return;
 }
 
-static void svr_event(
-    svr_state * ns,
-    tw_bf * b,
-    svr_msg * m,
-    tw_lp * lp)
+static void svr_event(svr_state * ns,tw_bf * b,svr_msg * m,tw_lp * lp)
 {
 
     switch (m->event_type)
@@ -224,11 +175,7 @@ static void svr_event(
     }
 }
 
-static void svr_rev_event(
-    svr_state * ns,
-    tw_bf * b,
-    svr_msg * m,
-    tw_lp * lp)
+static void svr_rev_event(svr_state * ns,tw_bf * b,svr_msg * m,tw_lp * lp)
 {
     switch (m->event_type)
     {
@@ -252,21 +199,13 @@ static void svr_rev_event(
     return;
 }
 
-static void svr_finalize(
-    svr_state * ns,
-    tw_lp * lp)
+static void svr_finalize(svr_state * ns,tw_lp * lp)
 {
-    printf("server %llu : size:%d requests:%d time:%lf rate:%lf\n",
-           (unsigned long long)lp->gid,
-           PAYLOAD_SZ,
-           NUM_REQS,
-           ns_to_s((tw_now(lp)-ns->start_ts)),
-           (double)(PAYLOAD_SZ*NUM_REQS)/(1024.0*1024.0)/ns_to_s((tw_now(lp)-ns->start_ts)));
+    printf("server %llu : size:%d requests:%d time:%lf rate:%lf\n",(unsigned long long)lp->gid,PAYLOAD_SZ,NUM_REQS,ns_to_s((tw_now(lp)-ns->start_ts)),(double)(PAYLOAD_SZ*NUM_REQS)/(1024.0*1024.0)/ns_to_s((tw_now(lp)-ns->start_ts)));
     return;
 }
 
-static tw_peid svr_node_mapping(
-    tw_lpid gid)
+static tw_peid svr_node_mapping(tw_lpid gid)
 {
     return (tw_peid) gid / g_tw_nlp;
 }
@@ -284,11 +223,7 @@ static tw_stime s_to_ns(tw_stime ns)
 }
 
 /* handle initial event */
-static void handle_kickoff_event(
-    svr_state * ns,
-    tw_bf * b,
-    svr_msg * m,
-    tw_lp * lp)
+static void handle_kickoff_event(svr_state * ns,tw_bf * b,svr_msg * m,tw_lp * lp)
 {
     svr_msg * m_new;
     tw_event *e_new;
@@ -296,18 +231,14 @@ static void handle_kickoff_event(
     double seek;
 
     if (LSM_DEBUG)
-        printf("handle_kickoff_event(), lp %llu.\n",
-            (unsigned long long)lp->gid);
+        printf("handle_kickoff_event(), lp %llu.\n",(unsigned long long)lp->gid);
 
     /* record when transfers started on this server */
     ns->start_ts = tw_now(lp);
 
     rate = 50.0;
     seek = 2000.0;
-    printf("server %llu : disk_rate:%lf disk_seek:%lf\n",
-           (unsigned long long)lp->gid,
-           rate,
-           seek);
+    printf("server %llu : disk_rate:%lf disk_seek:%lf\n",(unsigned long long)lp->gid,rate,seek);
 
     e_new = lsm_event_new("test", lp->gid, 0, 0, PAYLOAD_SZ, LSM_WRITE_REQUEST, sizeof(svr_msg), lp, 1.0);
     m_new = lsm_event_data(e_new);
@@ -332,11 +263,7 @@ static void handle_req_rev_event(
 
 
 /* reverse handler for kickoff */
-static void handle_kickoff_rev_event(
-    svr_state * ns,
-    tw_bf * b,
-    svr_msg * m,
-    tw_lp * lp)
+static void handle_kickoff_rev_event(svr_state * ns,tw_bf * b,svr_msg * m,tw_lp * lp)
 {
 
     lsm_event_new_reverse(lp);
@@ -348,11 +275,7 @@ static void handle_kickoff_rev_event(
 
 
 /* reverse handler for ack */
-static void handle_ack_rev_event(
-    svr_state * ns,
-    tw_bf * b,
-    svr_msg * m,
-    tw_lp * lp)
+static void handle_ack_rev_event(svr_state * ns,tw_bf * b,svr_msg * m,tw_lp * lp)
 {
     if(m->incremented_flag)
     {
@@ -364,18 +287,13 @@ static void handle_ack_rev_event(
 }
 
 /* handle recving ack */
-static void handle_ack_event(
-    svr_state * ns,
-    tw_bf * b,
-    svr_msg * m,
-    tw_lp * lp)
+static void handle_ack_event(svr_state * ns,tw_bf * b,svr_msg * m,tw_lp * lp)
 {
     svr_msg * m_new;
     tw_event *e_new;
 
     if (LSM_DEBUG)
-        printf("handle_ack_event(), lp %llu.\n",
-            (unsigned long long)lp->gid);
+        printf("handle_ack_event(), lp %llu.\n",(unsigned long long)lp->gid);
 
     /* safety check that this request got to the right server */
     assert(m->src == lp->gid);
@@ -400,18 +318,13 @@ static void handle_ack_event(
 }
 
 /* handle receiving request */
-static void handle_req_event(
-    svr_state * ns,
-    tw_bf * b,
-    svr_msg * m,
-    tw_lp * lp)
+static void handle_req_event(svr_state * ns,tw_bf * b,svr_msg * m,tw_lp * lp)
 {
     svr_msg * m_new;
     tw_event *e_new;
 
     if (LSM_DEBUG)
-        printf("handle_req_event(), lp %llu.\n",
-            (unsigned long long)lp->gid);
+        printf("handle_req_event(), lp %llu.\n",(unsigned long long)lp->gid);
 
     /* safety check that this request got to the right server */
     assert(lp->gid == m->src);
@@ -430,15 +343,10 @@ static void handle_req_event(
 }
 
 /* handle notification of local send completion */
-static void handle_local_event(
-    svr_state * ns,
-    tw_bf * b,
-    svr_msg * m,
-    tw_lp * lp)
+static void handle_local_event(svr_state * ns,tw_bf * b,svr_msg * m, tw_lp * lp)
 {
     if (LSM_DEBUG)
-        printf("handle_local_event(), lp %llu.\n",
-            (unsigned long long)lp->gid);
+        printf("handle_local_event(), lp %llu.\n",(unsigned long long)lp->gid);
 
     /* safety check that this request got to the right server */
     assert(lp->gid == m->src);
