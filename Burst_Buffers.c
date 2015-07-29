@@ -70,13 +70,13 @@ typedef struct node_state_s {
     tw_stime bb_ts_remote_write; // bb timestamp for local write
 } node_state;
 
-/*
+
 typedef struct file_s {
 	int id;
 	int size;
 	int offset;
 } file;
-*/
+
 
 typedef struct node_msg_s {
     msg_header h;
