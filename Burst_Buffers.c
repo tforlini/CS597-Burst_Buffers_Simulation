@@ -10,6 +10,7 @@
 #include "codes-base/codes/codes.h"
 #include "codes-base/codes/lp-msg.h"
 #include "codes-base/codes/lp-io.h"
+#include "codes-base/codes/local-storage-model.h"
 #include "codes-net/codes/model-net.h"
 #include <assert.h>
 
@@ -224,6 +225,15 @@ void handle_node_recv_req(node_state * ns,node_msg * m,tw_lp * lp){
     // name must be used
     tw_lpid dest_fwd_lpid = codes_mapping_get_lpid_from_relative(dest_fwd_id,"bb_FORWARDERS", "forwarder", NULL, 0);
     model_net_event_annotated(net_id_svr, "bb","ack", dest_fwd_lpid, pvfs_file_sz, 0.0,sizeof(m_fwd), &m_fwd, 0, NULL, lp);
+
+    // send local write event
+    svr_msg * m_new;
+    tw_event *e_new;
+    e_new = lsm_event_new("test", lp->gid, 0, 0, pvfs_file_sz, LSM_WRITE_REQUEST, sizeof(svr_msg), lp, 1.0);
+    m_new = lsm_event_data(e_new);
+    m_new->event_type = NODE_RECV_ack;
+    m_new->src = lp->gid;
+    tw_event_send(e_new);
 
     }
     else{											//is in server
