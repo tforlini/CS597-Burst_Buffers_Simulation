@@ -208,7 +208,7 @@ void io_node_send_ack(node_state * ns,node_msg * m,tw_lp * lp){
 	// name must be used
 	tw_lpid dest_fwd_lpid = codes_mapping_get_lpid_from_relative(dest_fwd_id,"svr_FORWARDERS", "forwarder", NULL, 0);
 	ns->pvfs_ts_remote_write += pvfs_tp_write_local_mu;
-	model_net_event_annotated(net_id_svr, "svr","ack", dest_fwd_lpid, pvfs_file_sz, 0.0,sizeof(m_fwd), &m_fwd, 0, NULL, lp);
+	model_net_event_annotated(net_id_svr, "svr","ack", dest_fwd_lpid, payload_sz, 0.0,sizeof(m_fwd), &m_fwd, 0, NULL, lp);
 
 }
 
