@@ -111,70 +111,6 @@ typedef struct forwarder_msg_s {
 static tw_stime ns_to_s(tw_stime ns);
 /**** BEGIN IMPLEMENTATIONS ****/
 
-void node_lp_init(node_state * ns, tw_lp * lp){
-
-	burst_buffer_capacity = ((long) (burst_buffer_max_capacity))*1000000000;
-	//printf("Burst Buffer Capacity:%li\n",burst_buffer_capacity);
-
-	printf("In node_lp_init\n");
-    ns->num_processed = 0;
-    // nodes are addressed in their logical id space (0...num_client_nodes-1 and
-    // 0...num_svr_nodes-1, respectively). LPs are computed upon use with
-    // model-net, other events
-    ns->id_clust = codes_mapping_get_lp_relative_id(lp->gid, 1, 0);
-    int id_all = codes_mapping_get_lp_relative_id(lp->gid, 0, 0);
-
-    // track which cluster we're in
-    ns->is_in_client = (id_all < num_client_nodes);
-    ns->is_in_server = (id_all < (num_svr_nodes + num_client_nodes) && (id_all >= num_client_nodes));
-    ns->is_in_bb = (id_all < (num_svr_nodes + num_client_nodes + num_burst_buffer_nodes) && (id_all >= num_svr_nodes + num_client_nodes));
-
-    printf("is_in_client=%d\nis_in_svr=%d\nis_in_bb=%d\n",ns->is_in_client,ns->is_in_server,ns->is_in_bb);
-    printf("id_all= %d\nnum_client_nodes= %d\n",id_all,num_client_nodes);
-    // send a self kickoff event
-    tw_event *e = codes_event_new(lp->gid, codes_local_latency(lp), lp);
-    node_msg *m = tw_event_data(e);
-    msg_set_header(node_magic, NODE_KICKOFF, lp->gid, &m->h);
-    tw_event_send(e);
-}
-
-void node_finalize(node_state * ns,tw_lp * lp){
-    // do some error checking - here, we ensure we got the expected number of
-    // messages
-    printf("In node_finalize\n");
-    int mult;
-    if (ns->is_in_client){
-        mult = 1;
-    }
-    else /*if(ns->is_in_server)*/{
-        //printf("num_svr_nodes is %d\n",num_svr_nodes);
-        mult = (num_client_nodes / num_svr_nodes) + ((num_client_nodes % num_svr_nodes) > ns->id_clust);
-    }
-    if (ns->num_processed != num_reqs*mult){
-        fprintf(stderr,"%s node %d, lp %lu: processed %d (expected %d)\n",ns->is_in_client ? "client" : "svr", ns->id_clust, lp->gid,ns->num_processed, num_reqs*mult);
-    }
-
-    //float io_noise = 0.05 * tw_rand_integer(lp->rng,ns->pvfs_ts_remote_write,ns->pvfs_ts_remote_write);
-    float io_noise = ns->pvfs_ts_remote_write * ((float) tw_rand_integer(lp->rng,0.0,5.0))/100.0;
-
-  /*  printf("--------	Random number : %f	------\n",((float) tw_rand_integer(lp->rng,0.0,100.0))/100.0);
-    printf("--------	Remote write latecy : %f	-------\n",(float) ns->pvfs_ts_remote_write );
-    printf("--------	IO Noise : %f	------\n",io_noise);*/
-    float io_noise_bb = 0.05* tw_rand_integer(lp->rng,ns->bb_ts_remote_write,ns->bb_ts_remote_write);
-
-    long rand_idx = 0;
-    //printf("num_svr_nodes is %d\n",num_svr_nodes);
-    int dest_id = (lp->gid + rand_idx * 2) % (num_svr_nodes * 2);
-    printf("Server %llu time = %f seconds.\n", (unsigned long long)lp->gid, ns_to_s(tw_now(lp)-ns->start_ts)+io_noise);
-
-            return;
-}
-
-/* event type handlers */
-void handle_node_next(node_state * ns,node_msg * m,tw_lp * lp){
-	compute_node_send_req(ns,m,lp);
-}
-
 void compute_node_send_req(node_state * ns,node_msg * m,tw_lp * lp){
 	printf("In handle_node_next\n");
 	// we must be in cluster client for this function
@@ -275,6 +211,72 @@ void io_node_send_ack(node_state * ns,node_msg * m,tw_lp * lp){
 	model_net_event_annotated(net_id_svr, "svr","ack", dest_fwd_lpid, pvfs_file_sz, 0.0,sizeof(m_fwd), &m_fwd, 0, NULL, lp);
 
 }
+
+void node_lp_init(node_state * ns, tw_lp * lp){
+
+	burst_buffer_capacity = ((long) (burst_buffer_max_capacity))*1000000000;
+	//printf("Burst Buffer Capacity:%li\n",burst_buffer_capacity);
+
+	printf("In node_lp_init\n");
+    ns->num_processed = 0;
+    // nodes are addressed in their logical id space (0...num_client_nodes-1 and
+    // 0...num_svr_nodes-1, respectively). LPs are computed upon use with
+    // model-net, other events
+    ns->id_clust = codes_mapping_get_lp_relative_id(lp->gid, 1, 0);
+    int id_all = codes_mapping_get_lp_relative_id(lp->gid, 0, 0);
+
+    // track which cluster we're in
+    ns->is_in_client = (id_all < num_client_nodes);
+    ns->is_in_server = (id_all < (num_svr_nodes + num_client_nodes) && (id_all >= num_client_nodes));
+    ns->is_in_bb = (id_all < (num_svr_nodes + num_client_nodes + num_burst_buffer_nodes) && (id_all >= num_svr_nodes + num_client_nodes));
+
+    printf("is_in_client=%d\nis_in_svr=%d\nis_in_bb=%d\n",ns->is_in_client,ns->is_in_server,ns->is_in_bb);
+    printf("id_all= %d\nnum_client_nodes= %d\n",id_all,num_client_nodes);
+    // send a self kickoff event
+    tw_event *e = codes_event_new(lp->gid, codes_local_latency(lp), lp);
+    node_msg *m = tw_event_data(e);
+    msg_set_header(node_magic, NODE_KICKOFF, lp->gid, &m->h);
+    tw_event_send(e);
+}
+
+void node_finalize(node_state * ns,tw_lp * lp){
+    // do some error checking - here, we ensure we got the expected number of
+    // messages
+    printf("In node_finalize\n");
+    int mult;
+    if (ns->is_in_client){
+        mult = 1;
+    }
+    else /*if(ns->is_in_server)*/{
+        //printf("num_svr_nodes is %d\n",num_svr_nodes);
+        mult = (num_client_nodes / num_svr_nodes) + ((num_client_nodes % num_svr_nodes) > ns->id_clust);
+    }
+    if (ns->num_processed != num_reqs*mult){
+        fprintf(stderr,"%s node %d, lp %lu: processed %d (expected %d)\n",ns->is_in_client ? "client" : "svr", ns->id_clust, lp->gid,ns->num_processed, num_reqs*mult);
+    }
+
+    //float io_noise = 0.05 * tw_rand_integer(lp->rng,ns->pvfs_ts_remote_write,ns->pvfs_ts_remote_write);
+    float io_noise = ns->pvfs_ts_remote_write * ((float) tw_rand_integer(lp->rng,0.0,5.0))/100.0;
+
+  /*  printf("--------	Random number : %f	------\n",((float) tw_rand_integer(lp->rng,0.0,100.0))/100.0);
+    printf("--------	Remote write latecy : %f	-------\n",(float) ns->pvfs_ts_remote_write );
+    printf("--------	IO Noise : %f	------\n",io_noise);*/
+    float io_noise_bb = 0.05* tw_rand_integer(lp->rng,ns->bb_ts_remote_write,ns->bb_ts_remote_write);
+
+    long rand_idx = 0;
+    //printf("num_svr_nodes is %d\n",num_svr_nodes);
+    int dest_id = (lp->gid + rand_idx * 2) % (num_svr_nodes * 2);
+    printf("Server %llu time = %f seconds.\n", (unsigned long long)lp->gid, ns_to_s(tw_now(lp)-ns->start_ts)+io_noise);
+
+            return;
+}
+
+/* event type handlers */
+void handle_node_next(node_state * ns,node_msg * m,tw_lp * lp){
+	compute_node_send_req(ns,m,lp);
+}
+
+
 
 void handle_node_recv_req(node_state * ns,node_msg * m,tw_lp * lp){
     //printf("In handle_recv_req\n");
