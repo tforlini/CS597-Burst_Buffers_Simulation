@@ -21,14 +21,14 @@ static int node_magic;
 static int forwarder_magic;
 
 /* counts of the various types of nodes in the example system */
-static int num_client_nodes, num_svr_nodes, num_burst_buffer_nodes;
-static int num_client_forwarders, num_svr_forwarders, num_burst_buffer_forwarders;
+static int num_client_nodes, num_svr_nodes, num_burst_buffer_nodes, num_storage_nodes;
+static int num_client_forwarders, num_svr_forwarders, num_burst_buffer_forwarders, num_storage_forwarders;
 
 /* reqs to perform (provided by config file) */
 static int num_reqs;
 static uint64_t payload_sz;
 /* network type for the various clusters */
-static int net_id_client, net_id_svr, net_id_forwarding, net_id_bb;
+static int net_id_client, net_id_svr, net_id_forwarding, net_id_bb, net_id_storage;
 
 /* network type */
 static int net_id;
@@ -111,7 +111,7 @@ typedef struct forwarder_msg_s {
 static tw_stime ns_to_s(tw_stime ns);
 /**** BEGIN IMPLEMENTATIONS ****/
 
-void compute_node_send_req(node_state * ns,node_msg * m,tw_lp * lp){
+void compute_node_send_request(node_state * ns,node_msg * m,tw_lp * lp){
 	printf("In handle_node_next\n");
 	// we must be in cluster client for this function
 	assert(ns->is_in_client);
@@ -273,7 +273,7 @@ void node_finalize(node_state * ns,tw_lp * lp){
 
 /* event type handlers */
 void handle_node_next(node_state * ns,node_msg * m,tw_lp * lp){
-	compute_node_send_req(ns,m,lp);
+	compute_node_send_request(ns,m,lp);
 }
 
 
@@ -580,9 +580,11 @@ int main(int argc, char *argv[])
     num_client_nodes = codes_mapping_get_lp_count("client_CLUSTER", 0, "node",NULL, 1);
     num_svr_nodes = codes_mapping_get_lp_count("svr_CLUSTER", 0, "node",NULL, 1);
     num_burst_buffer_nodes = codes_mapping_get_lp_count("bb_CLUSTER", 0, "node",NULL, 1);
+    num_storage_nodes = codes_mapping_get_lp_count("storage_CLUSTER", 0, "node",NULL, 1);
     num_client_forwarders = codes_mapping_get_lp_count("client_FORWARDERS", 0,"forwarder", NULL, 1);
     num_svr_forwarders = codes_mapping_get_lp_count("svr_FORWARDERS", 0,"forwarder", NULL, 1);
     num_burst_buffer_forwarders = codes_mapping_get_lp_count("bb_FORWARDERS", 0,"forwarder", NULL, 1);
+    num_storage_forwarders = codes_mapping_get_lp_count("storage_FORWARDERS", 0,"forwarder", NULL, 1);
 
 
     /* Setup the model-net parameters specified in the global config object,
