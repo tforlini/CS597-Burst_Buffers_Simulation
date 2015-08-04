@@ -591,11 +591,11 @@ int main(int argc, char *argv[])
     num_client_nodes = codes_mapping_get_lp_count("client_CLUSTER", 0, "node",NULL, 1);
     num_svr_nodes = codes_mapping_get_lp_count("svr_CLUSTER", 0, "node",NULL, 1);
     num_burst_buffer_nodes = codes_mapping_get_lp_count("bb_CLUSTER", 0, "node",NULL, 1);
-    num_storage_nodes = codes_mapping_get_lp_count("storage_CLUSTER", 0, "node",NULL, 1);
+    //num_storage_nodes = codes_mapping_get_lp_count("storage_CLUSTER", 0, "node",NULL, 1);
     num_client_forwarders = codes_mapping_get_lp_count("client_FORWARDERS", 0,"forwarder", NULL, 1);
     num_svr_forwarders = codes_mapping_get_lp_count("svr_FORWARDERS", 0,"forwarder", NULL, 1);
     num_burst_buffer_forwarders = codes_mapping_get_lp_count("bb_FORWARDERS", 0,"forwarder", NULL, 1);
-    num_storage_forwarders = codes_mapping_get_lp_count("storage_FORWARDERS", 0,"forwarder", NULL, 1);
+   // num_storage_forwarders = codes_mapping_get_lp_count("storage_FORWARDERS", 0,"forwarder", NULL, 1);
 
 
     /* Setup the model-net parameters specified in the global config object,
