@@ -612,9 +612,8 @@ int main(int argc, char *argv[])
             net_id_client = net_ids[0];
             net_id_svr = net_ids[0];
             net_id_bb = net_ids[0];
-            net_id_storage = net_ids[0]
+            net_id_storage = net_ids[0];
             net_id_forwarding = net_ids[0];
-
         }
         else if (num_nets == 2) {
             net_id_client = net_ids[0];
