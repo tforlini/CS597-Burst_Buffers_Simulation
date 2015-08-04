@@ -406,7 +406,7 @@ void handle_forwarder_fwd(forwarder_state * ns,forwarder_msg * m,tw_lp * lp){
 		category = "ack";
     	}
     else{
-    	mod = num_bb_forwarders;
+    	mod = num_burst_buffer_forwarders;
     	dest_group = "bb_FORWARDERS";
     	category = "ack";
     }
