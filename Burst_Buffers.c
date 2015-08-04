@@ -591,11 +591,11 @@ int main(int argc, char *argv[])
     num_client_nodes = codes_mapping_get_lp_count("client_CLUSTER", 0, "node",NULL, 1);
     num_svr_nodes = codes_mapping_get_lp_count("svr_CLUSTER", 0, "node",NULL, 1);
     num_burst_buffer_nodes = codes_mapping_get_lp_count("bb_CLUSTER", 0, "node",NULL, 1);
-    //num_storage_nodes = codes_mapping_get_lp_count("storage_CLUSTER", 0, "node",NULL, 1);
+    num_storage_nodes = codes_mapping_get_lp_count("storage_CLUSTER", 0, "node",NULL, 1);
     num_client_forwarders = codes_mapping_get_lp_count("client_FORWARDERS", 0,"forwarder", NULL, 1);
     num_svr_forwarders = codes_mapping_get_lp_count("svr_FORWARDERS", 0,"forwarder", NULL, 1);
     num_burst_buffer_forwarders = codes_mapping_get_lp_count("bb_FORWARDERS", 0,"forwarder", NULL, 1);
-   // num_storage_forwarders = codes_mapping_get_lp_count("storage_FORWARDERS", 0,"forwarder", NULL, 1);
+    num_storage_forwarders = codes_mapping_get_lp_count("storage_FORWARDERS", 0,"forwarder", NULL, 1);
 
 
     /* Setup the model-net parameters specified in the global config object,
@@ -607,30 +607,42 @@ int main(int argc, char *argv[])
          *          */
         int num_nets;
         int *net_ids = model_net_configure(&num_nets);
-        assert(num_nets <= 4);
+        assert(num_nets <= 5);
         if (num_nets == 1) {
             net_id_client = net_ids[0];
             net_id_svr = net_ids[0];
             net_id_bb = net_ids[0];
+            net_id_storage = net_ids[0]
             net_id_forwarding = net_ids[0];
+
         }
         else if (num_nets == 2) {
             net_id_client = net_ids[0];
             net_id_svr = net_ids[0];
             net_id_bb = net_ids[0];
+            net_id_storage = net_ids[0];
             net_id_forwarding = net_ids[1];
         }
         else if (num_nets == 3){
             net_id_client = net_ids[0];
             net_id_svr = net_ids[1];
             net_id_bb = net_ids[1];
+            net_id_storage = net_ids[1];
             net_id_forwarding = net_ids[2];
         }
-        else{
+        else if(num_nets == 4){
         	net_id_client = net_ids[0];
         	net_id_svr = net_ids[1];
         	net_id_bb = net_ids[2];
+        	net_id_storage = net_ids[2];
         	net_id_forwarding = net_ids[3];
+        }
+        else{
+        	net_id_client = net_ids[0];
+			net_id_svr = net_ids[1];
+			net_id_bb = net_ids[2];
+			net_id_storage = net_ids[3];
+			net_id_forwarding = net_ids[4];
         }
     free(net_ids);
 
