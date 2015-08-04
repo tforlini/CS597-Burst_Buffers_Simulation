@@ -400,9 +400,14 @@ void handle_forwarder_fwd(forwarder_state * ns,forwarder_msg * m,tw_lp * lp){
     		category = "req";
     	}
     	}
-    else{
+    else if (ns->is_in_bb){
     	mod = num_svr_forwarders;
-    	dest_group = "svr_FORWARDERS";
+		dest_group = "svr_FORWARDERS";
+		category = "ack";
+    	}
+    else{
+    	mod = num_bb_forwarders;
+    	dest_group = "bb_FORWARDERS";
     	category = "ack";
     }
 
@@ -448,10 +453,16 @@ void handle_forwarder_recv(forwarder_state * ns,forwarder_msg * m,tw_lp * lp) {
     		net_id=net_id_svr;
     	}
     }
-    else{
+    else if(ns->is_in_bb){
     	dest_group = "bb_CLUSTER";
     	annotation = "bb";
     	category = "req";
+    	net_id=net_id_bb;
+    }
+    else{
+    	dest_group = "storage_CLUSTER";
+    	annotation = "str";
+    	category = "ack";
     	net_id=net_id_bb;
     }
 
