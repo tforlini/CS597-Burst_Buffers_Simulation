@@ -430,6 +430,7 @@ void forwarder_lp_init(forwarder_state * ns,tw_lp * lp){
     int id_all = codes_mapping_get_lp_relative_id(lp->gid, 0, 0);
     ns->is_in_client = (id_all < num_client_forwarders);
     ns->is_in_server = (id_all < (num_svr_forwarders + num_client_forwarders) && (id_all >= num_client_forwarders));
+    ns->is_in_bb = (id_all < (num_svr_forwarders + num_client_forwarders + num_burst_buffer_forwarders) && (id_all >= num_svr_forwarders + num_client_forwarders));
 }
 
 void forwarder_finalize(forwarder_state * ns,tw_lp * lp){
