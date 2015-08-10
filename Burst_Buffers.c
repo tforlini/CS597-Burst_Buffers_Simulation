@@ -232,8 +232,8 @@ void burst_bufer_send_request(node_state * ns,node_msg * m,tw_lp * lp){
 	//m_fwd.node_event_type = NODE_RECV_ack;
 
 	// compute the dest forwarder index, again using a simple modulus
-	//int dest_fwd_id = ns->id_clust % num_burst_buffer_forwarders;
-	int dest_fwd_id = ns->id_clust % num_storage_forwarders;
+	int dest_fwd_id = ns->id_clust % num_burst_buffer_forwarders;
+
 
 	// as the relative forwarder IDs are with respect to groups, the group
 	// name must be used
@@ -333,12 +333,12 @@ void handle_node_recv_req(node_state * ns,node_msg * m,tw_lp * lp){
     // we must be in cluster svr to receive reqs
     assert(!ns->is_in_client);
 
-    if(ns->is_in_bb){	//is in Burst_buffer
+    if(ns->is_in_bb){								//is in Burst_buffer
     	//burst_buffer_send_ack(ns,m,lp);
     	burst_bufer_send_request(ns,m,lp);
 
     }
-    else if(ns->is_in_server){											//is in server
+    else if(ns->is_in_server){						//is in server
     	io_node_send_request(ns,m,lp);
     }
     else{											// is in storage node
@@ -352,7 +352,7 @@ void handle_node_recv_ack(node_state * ns,node_msg * m,tw_lp * lp){
     //printf("In handle_recv_ack\n");
     // we must be in cluster client
     //assert(ns->id_clust < num_client_nodes);
-    if(ns->is_in_client){  // in client cluster
+    if(ns->is_in_client){  									// in client cluster
     	printf("In handle_recv_ack client\n");
     	// simply process the next message
     	ns->num_processed++;
@@ -361,12 +361,16 @@ void handle_node_recv_ack(node_state * ns,node_msg * m,tw_lp * lp){
     	}
     }
     else if(ns->is_in_server){								  // in svr cluster
-    	io_node_send_ack(ns,m,lp);
+    	printf("In handle_recv_ack server\n");
     	ns->num_processed++;
+    	io_node_send_ack(ns,m,lp);
+
     }
     else if(ns->is_in_bb){									 // in burst_buffer
-    	burst_buffer_send_ack(ns,m,lp);
+    	printf("In handle_recv_ack burst buffer\n");
     	ns->num_processed++;
+    	burst_buffer_send_ack(ns,m,lp);
+
     }
 }
 
