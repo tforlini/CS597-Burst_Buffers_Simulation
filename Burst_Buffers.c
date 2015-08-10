@@ -444,19 +444,20 @@ void handle_forwarder_fwd(forwarder_state * ns,forwarder_msg * m,tw_lp * lp){
     const char * dest_group;
     char * category;
     if (ns->is_in_client){
+    	printf("Test Client forwarder \n");
         mod = num_svr_forwarders;
         dest_group = "svr_FORWARDERS";
         category = "req";
     }
     else if (ns->is_in_server){
     	if(m->node_event_type == NODE_RECV_ack){
-    		//printf("Test forwarder ACK\n");
+    		printf("Test Server forwarder ACK\n");
     		mod = num_client_forwarders;
     		dest_group = "client_FORWARDERS";
     		category = "ack";
     	}
     	else if(m->node_event_type == NODE_RECV_req){
-    		//printf("Test forwarder REQ\n");
+    		printf("Test Server forwarder REQ\n");
     		mod = num_burst_buffer_forwarders;
     		dest_group = "bb_FORWARDERS";
     		category = "req";
@@ -464,17 +465,20 @@ void handle_forwarder_fwd(forwarder_state * ns,forwarder_msg * m,tw_lp * lp){
     	}
     else if (ns->is_in_bb){
     	if(m->node_event_type == NODE_RECV_ack){
-			mod = num_svr_forwarders;
+    		printf("Test Burst Buffer forwarder ACK\n");
+    		mod = num_svr_forwarders;
 			dest_group = "svr_FORWARDERS";
 			category = "ack";
     	}
     	else if(m->node_event_type == NODE_RECV_req){
-			mod = num_storage_forwarders;
+    		printf("Test Burst Buffer forwarder REQ\n");
+    		mod = num_storage_forwarders;
 			dest_group = "storage_FORWARDERS";
 			category = "req";
     	}
     	}
     else{
+    	printf("Test Storage forwarder ACK\n");
     	mod = num_burst_buffer_forwarders;
     	dest_group = "bb_FORWARDERS";
     	category = "ack";
