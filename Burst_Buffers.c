@@ -217,7 +217,7 @@ void io_node_send_request(node_state * ns,node_msg * m,tw_lp * lp){
 }
 
 void burst_bufer_send_request(node_state * ns,node_msg * m,tw_lp * lp){
-	printf("In handle_recv_req Server\n");
+	printf("In handle_recv_req Burst Buffer\n");
 
 	assert(m->id_clust_src % num_burst_buffer_nodes == ns->id_clust);
 
