@@ -179,11 +179,11 @@ void storage_node_send_ack(node_state * ns,node_msg * m,tw_lp * lp){
 		m_fwd.node_event_type = NODE_RECV_ack;
 
 		// compute the dest forwarder index, again using a simple modulus
-		int dest_fwd_id = ns->id_clust % num_storage_forwarders;
+		int dest_fwd_id = ns->id_clust % num_burst_buffer_forwarders;
 
 		// as the relative forwarder IDs are with respect to groups, the group
 		// name must be used
-		tw_lpid dest_fwd_lpid = codes_mapping_get_lpid_from_relative(dest_fwd_id,"str_FORWARDERS", "forwarder", NULL, 0);
+		tw_lpid dest_fwd_lpid = codes_mapping_get_lpid_from_relative(dest_fwd_id,"storage_FORWARDERS", "forwarder", NULL, 0);
 		model_net_event_annotated(net_id_svr, "str","ack", dest_fwd_lpid, pvfs_file_sz, 0.0,sizeof(m_fwd), &m_fwd, 0, NULL, lp);
 }
 
