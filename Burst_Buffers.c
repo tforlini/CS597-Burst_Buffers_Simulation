@@ -459,9 +459,16 @@ void handle_forwarder_fwd(forwarder_state * ns,forwarder_msg * m,tw_lp * lp){
     	}
     	}
     else if (ns->is_in_bb){
-    	mod = num_svr_forwarders;
-		dest_group = "svr_FORWARDERS";
-		category = "ack";
+    	if(m->node_event_type == NODE_RECV_ack){
+			mod = num_svr_forwarders;
+			dest_group = "svr_FORWARDERS";
+			category = "ack";
+    	}
+    	else if(m->node_event_type == NODE_RECV_req){
+			mod = num_svr_forwarders;
+			dest_group = "storage_FORWARDERS";
+			category = "req";
+    	}
     	}
     else{
     	mod = num_burst_buffer_forwarders;
@@ -512,16 +519,24 @@ void handle_forwarder_recv(forwarder_state * ns,forwarder_msg * m,tw_lp * lp) {
     	}
     }
     else if(ns->is_in_bb){
+    	if(m->node_event_type == NODE_RECV_req){
     	dest_group = "bb_CLUSTER";
     	annotation = "bb";
     	category = "req";
     	net_id=net_id_bb;
+    	}
+    	else if(m->node_event_type == NODE_RECV_ack){
+		dest_group = "bb_CLUSTER";
+		annotation = "bb";
+		category = "ack";
+		net_id=net_id_bb;
+    	}
     }
     else{
     	dest_group = "storage_CLUSTER";
-    	annotation = "bb";
-    	category = "ack";
-    	net_id=net_id_bb;
+    	annotation = "str";
+    	category = "req";
+    	net_id=net_id_storage;
     }
 
     tw_lpid dest_lpid = codes_mapping_get_lpid_from_relative(m->dest_node_clust_id, dest_group, "node",NULL, 0);
