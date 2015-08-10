@@ -165,6 +165,28 @@ void burst_buffer_send_ack(node_state * ns,node_msg * m,tw_lp * lp){
 	    model_net_event_annotated(net_id_svr, "bb","ack", dest_fwd_lpid, pvfs_file_sz, 0.0,sizeof(m_fwd), &m_fwd, 0, NULL, lp);
 }
 
+void storage_node_send_ack(node_state * ns,node_msg * m,tw_lp * lp){
+		printf("In handle_recv_req Storage node\n");
+		// check that we received the msg from the expected source
+		assert(m->id_clust_src % num_storage_nodes == ns->id_clust);
+
+		// setup the response message through the forwarder
+		forwarder_msg m_fwd;
+		msg_set_header(forwarder_magic, FORWARDER_FWD, lp->gid, &m_fwd.h);
+
+		m_fwd.src_node_clust_id = ns->id_clust;
+		m_fwd.dest_node_clust_id = (m->id_clust_src % num_storage_nodes) % num_burst_buffer_nodes;
+		m_fwd.node_event_type = NODE_RECV_ack;
+
+		// compute the dest forwarder index, again using a simple modulus
+		int dest_fwd_id = ns->id_clust % num_burst_buffer_forwarders;
+
+		// as the relative forwarder IDs are with respect to groups, the group
+		// name must be used
+		tw_lpid dest_fwd_lpid = codes_mapping_get_lpid_from_relative(dest_fwd_id,"str_FORWARDERS", "forwarder", NULL, 0);
+		model_net_event_annotated(net_id_svr, "str","ack", dest_fwd_lpid, pvfs_file_sz, 0.0,sizeof(m_fwd), &m_fwd, 0, NULL, lp);
+}
+
 void io_node_send_request(node_state * ns,node_msg * m,tw_lp * lp){
 	printf("In handle_recv_req Server\n");
 	// check that we received the msg from the expected source
@@ -190,6 +212,32 @@ void io_node_send_request(node_state * ns,node_msg * m,tw_lp * lp){
 	tw_lpid dest_fwd_lpid = codes_mapping_get_lpid_from_relative(dest_fwd_id,"svr_FORWARDERS", "forwarder", NULL, 0);
 	ns->pvfs_ts_remote_write += pvfs_tp_write_local_mu;
 	model_net_event_annotated(net_id_svr, "svr","req", dest_fwd_lpid, pvfs_file_sz, 0.0,sizeof(m_fwd), &m_fwd, 0, NULL, lp);
+}
+
+void burst_bufer_send_request(node_state * ns,node_msg * m,tw_lp * lp){
+	printf("In handle_recv_req Server\n");
+
+	assert(m->id_clust_src % num_burst_buffer_nodes == ns->id_clust);
+
+	// setup the response message through the forwarder
+	forwarder_msg m_fwd;
+	msg_set_header(forwarder_magic, FORWARDER_FWD, lp->gid, &m_fwd.h);
+
+	m_fwd.src_node_clust_id = ns->id_clust;
+	m_fwd.dest_node_clust_id = (m->id_clust_src % num_burst_buffer_nodes ) % num_storage_nodes ;
+	//m_fwd.dest_node_clust_id = m->id_clust_src;
+	m_fwd.node_event_type = NODE_RECV_req;			//TO CHANGE WITH BB
+	//m_fwd.node_event_type = NODE_RECV_ack;
+
+	// compute the dest forwarder index, again using a simple modulus
+	//int dest_fwd_id = ns->id_clust % num_burst_buffer_forwarders;
+	int dest_fwd_id = ns->id_clust % num_storage_forwarders;
+
+	// as the relative forwarder IDs are with respect to groups, the group
+	// name must be used
+	tw_lpid dest_fwd_lpid = codes_mapping_get_lpid_from_relative(dest_fwd_id,"bb_FORWARDERS", "forwarder", NULL, 0);
+	ns->pvfs_ts_remote_write += pvfs_tp_write_local_mu;
+	model_net_event_annotated(net_id_svr, "bb","req", dest_fwd_lpid, pvfs_file_sz, 0.0,sizeof(m_fwd), &m_fwd, 0, NULL, lp);
 }
 
 void io_node_send_ack(node_state * ns,node_msg * m,tw_lp * lp){
@@ -283,12 +331,16 @@ void handle_node_recv_req(node_state * ns,node_msg * m,tw_lp * lp){
     // we must be in cluster svr to receive reqs
     assert(!ns->is_in_client);
 
-    if(!ns->is_in_server && !ns->is_in_client){	//is in Burst_buffer
-    	burst_buffer_send_ack(ns,m,lp);
+    if(ns->is_in_bb){	//is in Burst_buffer
+    	//burst_buffer_send_ack(ns,m,lp);
+    	burst_bufer_send_request(ns,m,lp);
 
     }
-    else{											//is in server
+    else if(ns->is_in_server){											//is in server
     	io_node_send_request(ns,m,lp);
+    }
+    else{											// is in storage node
+    	storage_node_send_ack(ns,m,lp);
     }
 
     ns->num_processed++;
@@ -308,6 +360,10 @@ void handle_node_recv_ack(node_state * ns,node_msg * m,tw_lp * lp){
     }
     else if(ns->is_in_server){								  // in svr cluster
     	io_node_send_ack(ns,m,lp);
+    	ns->num_processed++;
+    }
+    else if(ns->is_in_bb){									 // in burst_buffer
+    	burst_buffer_send_ack(ns,m,lp);
     	ns->num_processed++;
     }
 }
