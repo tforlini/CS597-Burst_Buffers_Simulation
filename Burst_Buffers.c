@@ -209,11 +209,11 @@ void io_node_send_request(node_state * ns,node_msg * m,tw_lp * lp){
 
 	// as the relative forwarder IDs are with respect to groups, the group
 	// name must be used
-	printf("TEST:1 \n");
+
 	tw_lpid dest_fwd_lpid = codes_mapping_get_lpid_from_relative(dest_fwd_id,"svr_FORWARDERS", "forwarder", NULL, 0);
 	ns->pvfs_ts_remote_write += pvfs_tp_write_local_mu;
 	model_net_event_annotated(net_id_svr, "svr","req", dest_fwd_lpid, pvfs_file_sz, 0.0,sizeof(m_fwd), &m_fwd, 0, NULL, lp);
-	printf("TEST:2 \n");
+
 }
 
 void burst_bufer_send_request(node_state * ns,node_msg * m,tw_lp * lp){
@@ -519,7 +519,7 @@ void handle_forwarder_recv(forwarder_state * ns,forwarder_msg * m,tw_lp * lp) {
     }
     else{
     	dest_group = "storage_CLUSTER";
-    	annotation = "str";
+    	annotation = "bb";
     	category = "ack";
     	net_id=net_id_bb;
     }
