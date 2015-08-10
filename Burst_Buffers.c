@@ -144,7 +144,7 @@ void compute_node_send_request(node_state * ns,node_msg * m,tw_lp * lp){
 
 void burst_buffer_send_ack(node_state * ns,node_msg * m,tw_lp * lp){
 
-		printf("In handle_recv_req Busrt Buffer\n");
+		printf("In Burst Buffer send ACK\n");
 	    // check that we received the msg from the expected source
 	    assert(m->id_clust_src % num_burst_buffer_nodes == ns->id_clust);
 
@@ -166,7 +166,7 @@ void burst_buffer_send_ack(node_state * ns,node_msg * m,tw_lp * lp){
 }
 
 void storage_node_send_ack(node_state * ns,node_msg * m,tw_lp * lp){
-		printf("In handle_recv_req Storage node\n");
+		printf("In Storage Node send ACK\n");
 		// check that we received the msg from the expected source
 		assert(m->id_clust_src % num_storage_nodes == ns->id_clust);
 
@@ -188,7 +188,7 @@ void storage_node_send_ack(node_state * ns,node_msg * m,tw_lp * lp){
 }
 
 void io_node_send_request(node_state * ns,node_msg * m,tw_lp * lp){
-	printf("In handle_recv_req Server\n");
+	printf("In Server send REQ\n");
 	// check that we received the msg from the expected source
    // printf("In handle_node_recv_req num_svr_nodes is %d\n",num_svr_nodes);
 	assert(m->id_clust_src % num_svr_nodes == ns->id_clust);
@@ -217,7 +217,7 @@ void io_node_send_request(node_state * ns,node_msg * m,tw_lp * lp){
 }
 
 void burst_bufer_send_request(node_state * ns,node_msg * m,tw_lp * lp){
-	printf("In handle_recv_req Burst Buffer\n");
+	printf("In Burst Buffer send REQ\n");
 
 	assert(m->id_clust_src % num_burst_buffer_nodes == ns->id_clust);
 
@@ -243,7 +243,7 @@ void burst_bufer_send_request(node_state * ns,node_msg * m,tw_lp * lp){
 }
 
 void io_node_send_ack(node_state * ns,node_msg * m,tw_lp * lp){
-	printf("In handle_recv_ack server\n");
+	printf("In Server send ACK\n");
 	// setup the response message through the forwarder
 	forwarder_msg m_fwd;
 	msg_set_header(forwarder_magic, FORWARDER_FWD, lp->gid, &m_fwd.h);
@@ -353,7 +353,7 @@ void handle_node_recv_ack(node_state * ns,node_msg * m,tw_lp * lp){
     // we must be in cluster client
     //assert(ns->id_clust < num_client_nodes);
     if(ns->is_in_client){  									// in client cluster
-    	printf("In handle_recv_ack client\n");
+    	printf("In Client receive ACK\n");
     	// simply process the next message
     	ns->num_processed++;
     	if (ns->num_processed < num_reqs){
@@ -361,13 +361,13 @@ void handle_node_recv_ack(node_state * ns,node_msg * m,tw_lp * lp){
     	}
     }
     else if(ns->is_in_server){								  // in svr cluster
-    	printf("In handle_recv_ack server\n");
+    	printf("In Server receive ACK\n");
     	ns->num_processed++;
     	io_node_send_ack(ns,m,lp);
 
     }
     else if(ns->is_in_bb){									 // in burst_buffer
-    	printf("In handle_recv_ack burst buffer\n");
+    	printf("In Burst Buffer receive ACK\n");
     	ns->num_processed++;
     	burst_buffer_send_ack(ns,m,lp);
 
@@ -445,20 +445,20 @@ void handle_forwarder_fwd(forwarder_state * ns,forwarder_msg * m,tw_lp * lp){
     const char * dest_group;
     char * category;
     if (ns->is_in_client){
-    	printf("Test Client forwarder \n");
+    	//printf("Test Client forwarder \n");
         mod = num_svr_forwarders;
         dest_group = "svr_FORWARDERS";
         category = "req";
     }
     else if (ns->is_in_server){
     	if(m->node_event_type == NODE_RECV_ack){
-    		printf("Test Server forwarder ACK\n");
+    		//printf("Test Server forwarder ACK\n");
     		mod = num_client_forwarders;
     		dest_group = "client_FORWARDERS";
     		category = "ack";
     	}
     	else if(m->node_event_type == NODE_RECV_req){
-    		printf("Test Server forwarder REQ\n");
+    		//printf("Test Server forwarder REQ\n");
     		mod = num_burst_buffer_forwarders;
     		dest_group = "bb_FORWARDERS";
     		category = "req";
@@ -466,20 +466,20 @@ void handle_forwarder_fwd(forwarder_state * ns,forwarder_msg * m,tw_lp * lp){
     	}
     else if (ns->is_in_bb){
     	if(m->node_event_type == NODE_RECV_ack){
-    		printf("Test Burst Buffer forwarder ACK\n");
+    		//printf("Test Burst Buffer forwarder ACK\n");
     		mod = num_svr_forwarders;
 			dest_group = "svr_FORWARDERS";
 			category = "ack";
     	}
     	else if(m->node_event_type == NODE_RECV_req){
-    		printf("Test Burst Buffer forwarder REQ\n");
+    		//printf("Test Burst Buffer forwarder REQ\n");
     		mod = num_storage_forwarders;
 			dest_group = "storage_FORWARDERS";
 			category = "req";
     	}
     	}
     else{
-    	printf("Test Storage forwarder ACK\n");
+    	//printf("Test Storage forwarder ACK\n");
     	mod = num_burst_buffer_forwarders;
     	dest_group = "bb_FORWARDERS";
     	category = "ack";
