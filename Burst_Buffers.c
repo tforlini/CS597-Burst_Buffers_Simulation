@@ -465,7 +465,7 @@ void handle_forwarder_fwd(forwarder_state * ns,forwarder_msg * m,tw_lp * lp){
 			category = "ack";
     	}
     	else if(m->node_event_type == NODE_RECV_req){
-			mod = num_svr_forwarders;
+			mod = num_storage_forwarders;
 			dest_group = "storage_FORWARDERS";
 			category = "req";
     	}
