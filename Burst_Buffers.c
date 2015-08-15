@@ -223,7 +223,7 @@ void burst_bufer_send_request(node_state * ns,node_msg * m,tw_lp * lp){
 	assert(m->id_clust_src % num_burst_buffer_nodes == ns->id_clust);
 
 
-	if(ns->bb_cur_capacity+pvfs_file_sz >= burst_buffer_max_capacity){ // if full send to storage node
+	if(ns->bb_cur_capacity+pvfs_file_sz >= burst_buffer_capacity){ // if full send to storage node
 	printf("In Burst Buffer send REQ to storage\n");
 	// setup the response message through the forwarder
 	forwarder_msg m_fwd;
