@@ -303,7 +303,8 @@ void io_node_send_ack(node_state * ns,node_msg * m,tw_lp * lp){
 
 void node_lp_init(node_state * ns, tw_lp * lp){
 
-	burst_buffer_capacity = ((long) (burst_buffer_max_capacity))*1000000000;
+	//burst_buffer_capacity = ((long) (burst_buffer_max_capacity))*1000000000;
+	burst_buffer_capacity = ((long) (burst_buffer_max_capacity))*10;
 	//printf("Burst Buffer Capacity:%li\n",burst_buffer_capacity);
 
 	printf("In node_lp_init\n");
