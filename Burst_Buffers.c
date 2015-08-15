@@ -232,7 +232,7 @@ void burst_bufer_send_request(node_state * ns,node_msg * m,tw_lp * lp){
 	m_fwd.node_event_type = NODE_RECV_req;
 
 	// compute the dest forwarder index, again using a simple modulus
-	int dest_fwd_id = ns->id_clust % num_burst_buffer_forwarders
+	int dest_fwd_id = ns->id_clust % num_burst_buffer_forwarders;
 
 	// as the relative forwarder IDs are with respect to groups, the group
 	// name must be used
@@ -270,7 +270,7 @@ void burst_bufer_send_request(node_state * ns,node_msg * m,tw_lp * lp){
 
 	tw_lpid dest_fwd_lpid2 = codes_mapping_get_lpid_from_relative(dest_fwd_id2,"bb_FORWARDERS", "forwarder", NULL, 0);
 	ns->pvfs_ts_remote_write += pvfs_tp_write_local_mu;
-	tw_stime offset = tw_rand_integer(lp->rng,0.0,5.0));
+	tw_stime offset = tw_rand_integer(lp->rng,0.0,5.0);
 	model_net_event_annotated(net_id_svr, "bb","req", dest_fwd_lpid2, pvfs_file_sz, offset,sizeof(m_fwd2), &m_fwd2, 0, NULL, lp);
 
 
@@ -346,7 +346,7 @@ void node_finalize(node_state * ns,tw_lp * lp){
   /*  printf("--------	Random number : %f	------\n",((float) tw_rand_integer(lp->rng,0.0,100.0))/100.0);
     printf("--------	Remote write latecy : %f	-------\n",(float) ns->pvfs_ts_remote_write );
     printf("--------	IO Noise : %f	------\n",io_noise);*/
-    float io_noise_bb = 0.05* tw_rand_integer(lp->rng,ns->bb_ts_remote_write,ns->bb_ts_remote_write);
+    float io_noise_bb = 0.05* tw_rand_integer(lp->rng,ns->bb_ts_local_write,ns->bb_ts_local_write);
 
     long rand_idx = 0;
     //printf("num_svr_nodes is %d\n",num_svr_nodes);
