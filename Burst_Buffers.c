@@ -162,6 +162,7 @@ void burst_buffer_send_ack(node_state * ns,node_msg * m,tw_lp * lp){
 	    // as the relative forwarder IDs are with respect to groups, the group
 	    // name must be used
 	    tw_lpid dest_fwd_lpid = codes_mapping_get_lpid_from_relative(dest_fwd_id,"bb_FORWARDERS", "forwarder", NULL, 0);
+	    ns->bb_cur_capacity -= pvfs_file_sz;
 	    model_net_event_annotated(net_id_svr, "bb","ack", dest_fwd_lpid, pvfs_file_sz, 0.0,sizeof(m_fwd), &m_fwd, 0, NULL, lp);
 }
 
@@ -217,12 +218,13 @@ void io_node_send_request(node_state * ns,node_msg * m,tw_lp * lp){
 }
 
 void burst_bufer_send_request(node_state * ns,node_msg * m,tw_lp * lp){
-	printf("In Burst Buffer send REQ\n");
+
 
 	assert(m->id_clust_src % num_burst_buffer_nodes == ns->id_clust);
 
 
 	if(ns->bb_cur_capacity+pvfs_file_sz >= burst_buffer_max_capacity){ // if full send to storage node
+	printf("In Burst Buffer send REQ to storage\n");
 	// setup the response message through the forwarder
 	forwarder_msg m_fwd;
 	msg_set_header(forwarder_magic, FORWARDER_FWD, lp->gid, &m_fwd.h);
@@ -241,6 +243,7 @@ void burst_bufer_send_request(node_state * ns,node_msg * m,tw_lp * lp){
 	model_net_event_annotated(net_id_svr, "bb","req", dest_fwd_lpid, pvfs_file_sz, 0.0,sizeof(m_fwd), &m_fwd, 0, NULL, lp);
 	}
 	else{																// if room local write
+	printf("In Burst Buffer send ACK to Server and REQ to storage later\n");
 	forwarder_msg m_fwd;												//send ack
 	msg_set_header(forwarder_magic, FORWARDER_FWD, lp->gid, &m_fwd.h);
 
@@ -255,6 +258,7 @@ void burst_bufer_send_request(node_state * ns,node_msg * m,tw_lp * lp){
 	// name must be used
 	tw_lpid dest_fwd_lpid = codes_mapping_get_lpid_from_relative(dest_fwd_id,"bb_FORWARDERS", "forwarder", NULL, 0);
 	ns->bb_ts_local_write += burst_buffer_local_mu;
+	ns->bb_cur_capacity += pvfs_file_sz;
 	model_net_event_annotated(net_id_svr, "bb","ack", dest_fwd_lpid, pvfs_file_sz, 0.0,sizeof(m_fwd), &m_fwd, 0, NULL, lp);
 
 
